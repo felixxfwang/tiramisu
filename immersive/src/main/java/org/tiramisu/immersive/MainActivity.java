@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
+import org.jetbrains.annotations.NotNull;
+import org.tiramisu.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
     private static final String TAG = "douyin";
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             this.mContext = context;
         }
 
-
+        @NotNull
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_immersive_video, parent, false);

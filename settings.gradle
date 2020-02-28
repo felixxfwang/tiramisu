@@ -1,2 +1,3 @@
-include ':app', ':immersive'
+include ':app', ':immersive', ':base'
 rootProject.name='tiramisu'
+include ':utils'
