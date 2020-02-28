@@ -84,7 +84,7 @@
         android:alpha="0"
         android:layout_centerInParent="true" />
 
-    <org.tiramisu.immersive.Love2
+    <org.tiramisu.immersive.TiktokPraiseView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

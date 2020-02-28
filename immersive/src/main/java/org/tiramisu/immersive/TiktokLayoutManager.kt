@@ -12,10 +12,10 @@ class TiktokLayoutManager(context: Context, orientation: Int, reverseLayout: Boo
     : LinearLayoutManager(context, orientation, reverseLayout), RecyclerView.OnChildAttachStateChangeListener {
 
     private var snapHelper = PagerSnapHelper()
-    private var listener: OnViewPagerListener? = null
+    private var listener: OnSnapListener? = null
     private var diffY = 0
 
-    fun setOnViewPagerListener(listener: OnViewPagerListener) {
+    fun setOnViewPagerListener(listener: OnSnapListener) {
         this.listener = listener
     }
 

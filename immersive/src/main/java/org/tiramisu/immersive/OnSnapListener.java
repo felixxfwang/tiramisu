@@ -1,8 +1,6 @@
 package org.tiramisu.immersive;
 
-public interface OnViewPagerListener {
-    /*初始化完成*/
-    void onInitComplete();
+public interface OnSnapListener {
 
     /*释放的监听*/
     void onPageRelease(boolean isNext, int position);

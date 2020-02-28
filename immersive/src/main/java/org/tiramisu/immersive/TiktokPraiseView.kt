@@ -20,8 +20,7 @@ import java.util.*
 /**
  * information：仿抖音点赞功能
  */
-
-class Love2(context: Context) : RelativeLayout(context) {
+class TiktokPraiseView(context: Context) : RelativeLayout(context) {
     var mContext: Context? = null
     //动画中随机❤的旋转角度
     var num = floatArrayOf(-35f, -25f, 0f, 25f, 35f)
@@ -35,7 +34,6 @@ class Love2(context: Context) : RelativeLayout(context) {
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-
         System.arraycopy(mHits, 1, mHits, 0, mHits.size - 1)
         mHits[mHits.size - 1] = SystemClock.uptimeMillis()
 
