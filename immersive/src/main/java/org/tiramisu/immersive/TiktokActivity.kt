@@ -5,8 +5,15 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.tiramisu.base.BaseActivity
+import org.tiramisu.network.service.VideoQueryResult
+import org.tiramisu.network.service.VideoService
+import org.tiramisu.network.service.retrofit
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TiktokActivity : BaseActivity() {
 
@@ -23,6 +30,8 @@ class TiktokActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+
+        queryVideos()
     }
 
     private fun initView() {
@@ -41,6 +50,26 @@ class TiktokActivity : BaseActivity() {
                 Log.e(TAG, "选择位置:$position 下一页:$bottom")
                 playVideo(0)
             }
+        })
+    }
+
+    private fun queryVideos() {
+        retrofit.create(VideoService::class.java).getVideos().enqueue(object : Callback<VideoQueryResult> {
+            override fun onFailure(call: Call<VideoQueryResult>, t: Throwable) {
+                LogUtils.eTag(TAG, "queryVideos failed", t)
+            }
+
+            override fun onResponse(
+                call: Call<VideoQueryResult>,
+                response: Response<VideoQueryResult>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        adapter.setData(it.videos)
+                    }
+                }
+            }
+
         })
     }
 

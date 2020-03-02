@@ -8,35 +8,28 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
+import org.tiramisu.network.service.Video
 
 class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var thumbImage: ImageView = itemView.findViewById(R.id.img_thumb)
         var videoView: VideoView = itemView.findViewById(R.id.video_view)
-        var playImage: ImageView = itemView.findViewById(R.id.img_play)
     }
 
-    private val imgs = intArrayOf(
-        R.mipmap.img_video_1,
-        R.mipmap.img_video_2,
-        R.mipmap.img_video_3,
-        R.mipmap.img_video_4,
-        R.mipmap.img_video_5,
-        R.mipmap.img_video_6,
-        R.mipmap.img_video_7,
-        R.mipmap.img_video_8
-    )
-    private val videos = intArrayOf(
-        R.raw.video_1,
-        R.raw.video_2,
-        R.raw.video_3,
-        R.raw.video_4,
-        R.raw.video_5,
-        R.raw.video_6,
-        R.raw.video_7,
-        R.raw.video_8
-    )
+    private val dataList = ArrayList<Video>()
+
+    fun setData(data: List<Video>) {
+        dataList.clear()
+        dataList.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun addData(data: List<Video>) {
+        dataList.addAll(data)
+        notifyDataSetChanged()
+    }
+
     private var index = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,13 +39,11 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.thumbImage.setImageResource(imgs[index])
-        holder.videoView.setVideoURI(
-            Uri.parse("android.resource://" + context.packageName + "/" + videos[index])
-        )
-        ++index
-        index %= 7
+        val video = dataList[index]
+        holder.thumbImage.setImageURI(Uri.parse(video.cover_url))
+        holder.videoView.setVideoURI(Uri.parse(video.video_url))
+        index = ++index % itemCount
     }
 
-    override fun getItemCount(): Int = 88
+    override fun getItemCount(): Int = dataList.size
 }
