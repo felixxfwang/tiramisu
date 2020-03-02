@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import org.tiramisu.network.service.Video
 
 class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var thumbImage: ImageView = itemView.findViewById(R.id.img_thumb)
-        var videoView: VideoView = itemView.findViewById(R.id.video_view)
+        var videoView: StandardGSYVideoPlayer = itemView.findViewById(R.id.video_view)
     }
 
     private val dataList = ArrayList<Video>()
@@ -41,7 +41,7 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val video = dataList[index]
         holder.thumbImage.setImageURI(Uri.parse(video.cover_url))
-        holder.videoView.setVideoURI(Uri.parse(video.video_url))
+        holder.videoView.setUp(video.video_url, true, video.video_title)
         index = ++index % itemCount
     }
 

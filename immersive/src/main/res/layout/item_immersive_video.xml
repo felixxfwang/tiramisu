@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.tiramisu.immersive.FullWindowVideoView
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false" />
+
     <ImageView
         android:id="@+id/img_thumb"
         android:layout_width="match_parent"

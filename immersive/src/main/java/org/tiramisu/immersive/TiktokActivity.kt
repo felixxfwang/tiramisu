@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.LogUtils
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.network.service.VideoQueryResult
@@ -75,32 +76,32 @@ class TiktokActivity : BaseActivity() {
 
     private fun releaseVideo(index: Int) {
         val itemView = recycler.getChildAt(index)
-        val videoView = itemView.findViewById<VideoView>(R.id.video_view)
+        val videoView = itemView.findViewById<StandardGSYVideoPlayer>(R.id.video_view)
         val imgThumb = itemView.findViewById<ImageView>(R.id.img_thumb)
         val imgPlay = itemView.findViewById<ImageView>(R.id.img_play)
-        videoView.stopPlayback()
+        videoView.onVideoPause()
         imgThumb.animate().alpha(1f).start()
         imgPlay.animate().alpha(0f).start()
     }
 
     private fun playVideo(position: Int) {
         val itemView = recycler.getChildAt(position)
-        val videoView: FullWindowVideoView = itemView.findViewById(R.id.video_view)
+        val videoView = itemView.findViewById<StandardGSYVideoPlayer>(R.id.video_view)
         val imgPlay = itemView.findViewById<ImageView>(R.id.img_play)
         val imgThumb = itemView.findViewById<ImageView>(R.id.img_thumb)
-        videoView.setOnInfoListener { mp, what, extra ->
-            mp.isLooping = true
-            imgThumb.animate().alpha(0f).setDuration(200).start()
-            false
-        }
-        videoView.start()
+//        videoView.setOnInfoListener { mp, what, extra ->
+//            mp.isLooping = true
+//            imgThumb.animate().alpha(0f).setDuration(200).start()
+//            false
+//        }
+        videoView.startPlayLogic()
         imgPlay.setOnClickListener {
-            if (videoView.isPlaying) {
+            if (videoView.isInPlayingState) {
                 imgPlay.animate().alpha(0.7f).start()
-                videoView.pause()
+                videoView.onVideoPause()
             } else {
                 imgPlay.animate().alpha(0f).start()
-                videoView.start()
+                videoView.onVideoResume()
             }
         }
     }

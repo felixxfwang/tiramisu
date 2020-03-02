@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/TiramisuTheme">
 
-        <activity android:name=".TiktokActivity">
+        <activity android:name=".TiktokActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
