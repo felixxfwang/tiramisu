@@ -8,9 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+import org.tiramisu.log.TLog
 import org.tiramisu.network.service.Video
 
 class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {
+
+    companion object {
+        private const val TAG = "TiktokAdapter"
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var thumbImage: ImageView = itemView.findViewById(R.id.img_thumb)
@@ -39,6 +44,7 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        TLog.i(TAG, "onBindViewHolder: position: $position")
         val video = dataList[index]
         holder.thumbImage.setImageURI(Uri.parse(video.cover_url))
         holder.videoView.setUp(video.video_url, true, video.video_title)

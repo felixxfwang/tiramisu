@@ -1,14 +1,12 @@
 package org.tiramisu.immersive
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.tiramisu.base.BaseActivity
+import org.tiramisu.log.TLog
 import org.tiramisu.network.service.VideoQueryResult
 import org.tiramisu.network.service.VideoService
 import org.tiramisu.network.service.retrofit
@@ -39,16 +37,15 @@ class TiktokActivity : BaseActivity() {
         recycler.layoutManager = layoutManager
         recycler.adapter = adapter
 
-        layoutManager.setOnViewPagerListener(object :
-            OnSnapListener {
+        layoutManager.setOnViewPagerListener(object : OnSnapListener {
             override fun onPageRelease(isNext: Boolean, position: Int) {
-                Log.e(TAG, "释放位置:$position 下一页:$isNext")
+                TLog.i(TAG, "释放位置:$position 下一页:$isNext")
                 val index = if (isNext) 0 else 1
                 releaseVideo(index)
             }
 
             override fun onPageSelected(position: Int, bottom: Boolean) {
-                Log.e(TAG, "选择位置:$position 下一页:$bottom")
+                TLog.i(TAG, "选择位置:$position 下一页:$bottom")
                 playVideo(0)
             }
         })
@@ -57,7 +54,7 @@ class TiktokActivity : BaseActivity() {
     private fun queryVideos() {
         retrofit.create(VideoService::class.java).getVideos().enqueue(object : Callback<VideoQueryResult> {
             override fun onFailure(call: Call<VideoQueryResult>, t: Throwable) {
-                LogUtils.eTag(TAG, "queryVideos failed", t)
+                TLog.e(TAG, "queryVideos failed", t)
             }
 
             override fun onResponse(
@@ -88,12 +85,6 @@ class TiktokActivity : BaseActivity() {
         val itemView = recycler.getChildAt(position)
         val videoView = itemView.findViewById<StandardGSYVideoPlayer>(R.id.video_view)
         val imgPlay = itemView.findViewById<ImageView>(R.id.img_play)
-        val imgThumb = itemView.findViewById<ImageView>(R.id.img_thumb)
-//        videoView.setOnInfoListener { mp, what, extra ->
-//            mp.isLooping = true
-//            imgThumb.animate().alpha(0f).setDuration(200).start()
-//            false
-//        }
         videoView.startPlayLogic()
         imgPlay.setOnClickListener {
             if (videoView.isInPlayingState) {
