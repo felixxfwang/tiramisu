@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#输出mapping ，该句一定要加在最后，用于混淆查找
+-printmapping mapping.txt
