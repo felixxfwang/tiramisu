@@ -1,4 +1,10 @@
-apply plugin: 'com.android.application'
+def runAlone = isRunAlone.toBoolean()
+if (runAlone) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,13 +13,18 @@ android {
     buildToolsVersion "29.0.1"
 
     defaultConfig {
-        applicationId "org.tiramisu.immersive"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        if (runAlone) {
+            applicationId "org.tiramisu.immersive"
+        } else {
+            consumerProguardFiles 'consumer-rules.pro'
+        }
     }
 
     buildTypes {
