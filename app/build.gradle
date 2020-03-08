@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply from: rootProject.file('multidex.gradle')
+apply from: rootProject.file('release.gradle')
 
 android {
     compileSdkVersion 29
@@ -20,13 +21,6 @@ android {
 
     kotlinOptions {
         jvmTarget = 1.8
-    }
-    
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
     }
 
     compileOptions {

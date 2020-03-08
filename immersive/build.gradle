@@ -12,6 +12,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: ModularPlugin
 
+apply from: rootProject.file('release.gradle')
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -39,13 +41,6 @@ android {
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             }
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
