@@ -63,4 +63,5 @@ dependencies {
     implementation project(':net-service')
     implementation project(':player')
     implementation project(':log')
+    implementation project(':modular')
 }
