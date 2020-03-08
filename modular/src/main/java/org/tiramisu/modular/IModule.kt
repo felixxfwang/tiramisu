@@ -5,17 +5,27 @@ import android.app.Application
 interface IModule {
 
     /**
-     * 模块名称
+     * 组件名称
      */
     fun name(): String
 
     /**
-     * 模块初始化
+     * 初始化组件
      */
     fun initialize(application: Application)
 
     /**
-     * 模块反初始化
+     * 反初始化组件
      */
     fun unload() {}
+
+    /**
+     * 是否完成了初始化
+     */
+    fun isInitialized(): Boolean = false
+
+    /**
+     * 初始化所依赖的组件名列表
+     */
+    fun dependsOn(): List<String>? = null
 }
