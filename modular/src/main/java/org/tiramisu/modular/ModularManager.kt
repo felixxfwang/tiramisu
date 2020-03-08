@@ -3,7 +3,7 @@ package org.tiramisu.modular
 import android.app.Application
 import java.util.*
 
-class ModuleManager: IModule {
+class ModularManager: IModule {
 
     companion object {
         private const val TAG = "ModuleManager"

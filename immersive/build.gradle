@@ -1,3 +1,5 @@
+import org.tiramisu.gradle.ModularPlugin
+
 def runAlone = isRunAlone.toBoolean()
 if (runAlone) {
     apply plugin: 'com.android.application'
@@ -7,6 +9,8 @@ if (runAlone) {
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: ModularPlugin
 
 android {
     compileSdkVersion 29
@@ -45,6 +49,10 @@ android {
         }
     }
 
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
