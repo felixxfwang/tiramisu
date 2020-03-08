@@ -27,5 +27,5 @@ interface IModule {
     /**
      * 初始化所依赖的组件名列表
      */
-    fun dependsOn(): List<String>? = null
+    fun dependsOn(): List<String> = emptyList()
 }

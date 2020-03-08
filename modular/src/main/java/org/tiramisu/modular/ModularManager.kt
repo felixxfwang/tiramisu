@@ -22,19 +22,21 @@ class ModularManager: IModule {
     override fun name(): String = TAG
 
     override fun initialize(application: Application) {
-        modules().forEach { module ->
-            if (!module.isInitialized()) {
-                checkDependsInitialize(module, application)
-                module.initialize(application)
-            }
+        modules().forEach { module -> initModule(module, application) }
+    }
+
+    private fun initModule(module: IModule, app: Application) {
+        if (!module.isInitialized()) {
+            checkDependsInitialize(module, app)
+            module.initialize(app)
         }
     }
 
     private fun checkDependsInitialize(module: IModule, app: Application) {
         val depends = module.dependsOn()
-        if (!depends.isNullOrEmpty()) {
+        if (depends.isNotEmpty()) {
             depends.forEach { depend ->
-                moduleMap[depend]?.initialize(app)
+                moduleMap[depend]?.let { initModule(it, app) }
             }
         }
     }
