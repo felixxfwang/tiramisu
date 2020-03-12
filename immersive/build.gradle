@@ -1,4 +1,4 @@
-import org.tiramisu.gradle.ModularPlugin
+import org.tiramisu.gradle.ModularGroovyPlugin
 
 def runAlone = isRunAlone.toBoolean()
 if (runAlone) {
@@ -10,7 +10,7 @@ if (runAlone) {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: ModularPlugin
+apply plugin: ModularGroovyPlugin
 
 apply from: rootProject.file('release.gradle')
 

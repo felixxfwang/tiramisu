@@ -1,4 +1,5 @@
-apply plugin: 'java-library'
+//apply plugin: 'java-library'
+apply plugin: 'groovy'
 apply plugin: 'kotlin'
 
 buildscript {
@@ -32,6 +33,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation localGroovy()
     compileOnly gradleApi()
 //    implementation "com.android.tools.build:gradle:3.6.1"
 
