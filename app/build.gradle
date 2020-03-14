@@ -49,5 +49,6 @@ dependencies {
 
     implementation project(':modular')
     implementation project(':base')
+    implementation project(':biz-base')
     runtimeOnly project(':immersive')
 }

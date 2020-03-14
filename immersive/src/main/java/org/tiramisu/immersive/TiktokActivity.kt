@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
+import org.tiramisu.biz.base.RT
 import org.tiramisu.log.TLog
 import org.tiramisu.network.service.VideoQueryResult
 import org.tiramisu.network.service.VideoService
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-@Route(path = "/immersive/tiktok")
+@Route(path = RT.Immersive.TIKTOK)
 class TiktokActivity : BaseActivity() {
 
     companion object {
