@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply from: rootProject.file('multidex.gradle')
-apply from: rootProject.file('release.gradle')
+apply from: rootProject.file('gradle/multidex.gradle')
+apply from: rootProject.file('gradle/release.gradle')
 
 android {
     compileSdkVersion 29

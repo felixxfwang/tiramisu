@@ -1,65 +1,16 @@
-import org.tiramisu.gradle.ModularPlugin
-
-def runAlone = isRunAlone.toBoolean()
-if (runAlone) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: ModularPlugin
-
-apply from: rootProject.file('release.gradle')
+apply from: rootProject.file('gradle/modular.gradle')
+apply from: rootProject.file('gradle/release.gradle')
+apply from: rootProject.file('gradle/test.gradle')
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.1"
-
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        if (runAlone) {
-            applicationId "org.tiramisu.immersive"
-        } else {
-            consumerProguardFiles 'consumer-rules.pro'
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    sourceSets {
-        main {
-            // 单独调试与集成调试时使用不同的 AndroidManifest.xml 文件
-            if (runAlone) {
-                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            }
-        }
-    }
-
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':base')
     implementation project(':utils')
