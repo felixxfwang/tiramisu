@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import org.tiramisu.log.TLog
 import org.tiramisu.network.service.Video
+import org.tiramisu.player.TMVideoView
 
 class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {
 
@@ -19,7 +19,7 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var thumbImage: ImageView = itemView.findViewById(R.id.img_thumb)
-        var videoView: StandardGSYVideoPlayer = itemView.findViewById(R.id.video_view)
+        var videoView: TMVideoView = itemView.findViewById(R.id.video_view)
         var playImage: ImageView = itemView.findViewById(R.id.img_play)
     }
 
@@ -48,17 +48,19 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
         val video = dataList[position]
         TLog.i(TAG, "onBindViewHolder: position: $position, videoView: ${holder.videoView.hashCode()}")
         holder.thumbImage.setImageURI(Uri.parse(video.cover_url))
-        holder.videoView.setUp(video.video_url, true, video.video_title + "position: " + position)
-        holder.playImage.setOnClickListener {
-            if (holder.videoView.isInPlayingState) {
-                holder.playImage.animate().alpha(0.7f).start()
-                holder.videoView.onVideoPause()
-            } else {
-                holder.playImage.animate().alpha(0f).start()
-                holder.videoView.onVideoResume()
-            }
-        }
+        holder.videoView.setUp(video.video_url, video.video_title)
+//        holder.playImage.setOnClickListener {
+//            if (holder.videoView.isP) {
+//                holder.playImage.animate().alpha(0.7f).start()
+//                holder.videoView.onStatePause()
+//            } else {
+//                holder.playImage.animate().alpha(0f).start()
+//                holder.videoView.startVideo()
+//            }
+//        }
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    override fun getItemId(position: Int): Long = position.toLong()
 }

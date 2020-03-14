@@ -1,10 +1,8 @@
 package org.tiramisu.immersive
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.biz.base.RT
@@ -74,7 +72,7 @@ class TiktokActivity : BaseActivity() {
 
     private fun pauseVideo(position: Int) {
         (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
-            it.videoView.onVideoPause()
+            it.videoView.pause()
             it.thumbImage.animate().alpha(1f).start()
             it.playImage.animate().alpha(0f).start()
             TLog.i(TAG, "releaseVideo: childCount=${recycler.childCount},  videoView: ${it.videoView.hashCode()}")
@@ -83,7 +81,7 @@ class TiktokActivity : BaseActivity() {
 
     private fun playVideo(position: Int) {
         (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
-            it.videoView.startPlayLogic()
+            it.videoView.start()
             TLog.i(TAG, "playVideo: childCount=${recycler.childCount}, videoView: ${it.videoView.hashCode()}")
         }
     }
