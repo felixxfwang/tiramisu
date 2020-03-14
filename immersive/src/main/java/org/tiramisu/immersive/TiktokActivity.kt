@@ -42,14 +42,13 @@ class TiktokActivity : BaseActivity() {
 
         layoutManager.setOnViewPagerListener(object : OnSnapListener {
             override fun onPageUnselected(isNext: Boolean, position: Int) {
-                TLog.i(TAG, "释放位置:$position 向下翻页:$isNext")
-                val index = if (isNext) 0 else 1
-                releaseVideo(index)
+                TLog.i(TAG, "onPageUnselected:$position isNext:$isNext")
+                pauseVideo(position)
             }
 
             override fun onPageSelected(position: Int, bottom: Boolean) {
-                TLog.i(TAG, "选择位置:$position isBottom:$bottom")
-                playVideo(0)
+                TLog.i(TAG, "onPageSelected:$position isBottom:$bottom")
+                playVideo(position)
             }
         })
     }
@@ -73,29 +72,19 @@ class TiktokActivity : BaseActivity() {
         })
     }
 
-    private fun releaseVideo(index: Int) {
-        val itemView = recycler.getChildAt(index)
-        val videoView = itemView.findViewById<StandardGSYVideoPlayer>(R.id.video_view)
-        val imgThumb = itemView.findViewById<ImageView>(R.id.img_thumb)
-        val imgPlay = itemView.findViewById<ImageView>(R.id.img_play)
-        videoView.onVideoPause()
-        imgThumb.animate().alpha(1f).start()
-        imgPlay.animate().alpha(0f).start()
+    private fun pauseVideo(position: Int) {
+        (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
+            it.videoView.onVideoPause()
+            it.thumbImage.animate().alpha(1f).start()
+            it.playImage.animate().alpha(0f).start()
+            TLog.i(TAG, "releaseVideo: childCount=${recycler.childCount},  videoView: ${it.videoView.hashCode()}")
+        }
     }
 
     private fun playVideo(position: Int) {
-        val itemView = recycler.getChildAt(position)
-        val videoView = itemView.findViewById<StandardGSYVideoPlayer>(R.id.video_view)
-        val imgPlay = itemView.findViewById<ImageView>(R.id.img_play)
-        videoView.startPlayLogic()
-        imgPlay.setOnClickListener {
-            if (videoView.isInPlayingState) {
-                imgPlay.animate().alpha(0.7f).start()
-                videoView.onVideoPause()
-            } else {
-                imgPlay.animate().alpha(0f).start()
-                videoView.onVideoResume()
-            }
+        (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
+            it.videoView.startPlayLogic()
+            TLog.i(TAG, "playVideo: childCount=${recycler.childCount}, videoView: ${it.videoView.hashCode()}")
         }
     }
 }
