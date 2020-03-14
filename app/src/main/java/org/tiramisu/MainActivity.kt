@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.alibaba.android.arouter.launcher.ARouter
 import org.tiramisu.base.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -22,5 +23,7 @@ class MainActivity : BaseActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        ARouter.getInstance().build("/immersive/tiktok").navigation()
     }
 }
