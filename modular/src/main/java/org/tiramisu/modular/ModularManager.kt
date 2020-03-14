@@ -1,6 +1,7 @@
 package org.tiramisu.modular
 
 import android.app.Application
+import com.alibaba.android.arouter.launcher.ARouter
 import java.util.*
 
 class ModularManager: IModule {
@@ -22,7 +23,16 @@ class ModularManager: IModule {
     override fun name(): String = TAG
 
     override fun initialize(application: Application) {
+        initARouter(application)
         modules().forEach { module -> initModule(module, application) }
+    }
+
+    private fun initARouter(app: Application) {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        ARouter.init(app)
     }
 
     private fun initModule(module: IModule, app: Application) {

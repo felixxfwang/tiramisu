@@ -3,8 +3,9 @@ package org.tiramisu.immersive
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.log.TLog
 import org.tiramisu.network.service.VideoQueryResult
@@ -14,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@Route(path = "/immersive/tiktok")
 class TiktokActivity : BaseActivity() {
 
     companion object {
@@ -27,7 +29,7 @@ class TiktokActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_tiktok)
         initView()
 
         queryVideos()
