@@ -41,14 +41,14 @@ class TiktokActivity : BaseActivity() {
         recycler.adapter = adapter
 
         layoutManager.setOnViewPagerListener(object : OnSnapListener {
-            override fun onPageRelease(isNext: Boolean, position: Int) {
-                TLog.i(TAG, "释放位置:$position 下一页:$isNext")
+            override fun onPageUnselected(isNext: Boolean, position: Int) {
+                TLog.i(TAG, "释放位置:$position 向下翻页:$isNext")
                 val index = if (isNext) 0 else 1
                 releaseVideo(index)
             }
 
             override fun onPageSelected(position: Int, bottom: Boolean) {
-                TLog.i(TAG, "选择位置:$position 下一页:$bottom")
+                TLog.i(TAG, "选择位置:$position isBottom:$bottom")
                 playVideo(0)
             }
         })
@@ -70,7 +70,6 @@ class TiktokActivity : BaseActivity() {
                     }
                 }
             }
-
         })
     }
 

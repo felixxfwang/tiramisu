@@ -18,7 +18,7 @@ class ImmersiveModule: BaseModule() {
 
     override fun initialize(application: Application) {
         TLog.i(TAG, "initialize.")
-        setInitialized()
+        super.initialize(application)
     }
 
     override fun unload() {
