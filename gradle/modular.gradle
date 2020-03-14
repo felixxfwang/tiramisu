@@ -4,6 +4,7 @@ def runAlone = isRunAlone.toBoolean()
 if (runAlone) {
     apply plugin: 'com.android.application'
     apply from: rootProject.file('gradle/multidex.gradle')
+    apply from: rootProject.file('gradle/release.gradle')
 } else {
     apply plugin: 'com.android.library'
 }
@@ -28,6 +29,15 @@ android {
             versionCode 1
             versionName "1.0"
             consumerProguardFiles 'consumer-rules.pro'
+        }
+    }
+
+    if (!isRunAlone) {
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
         }
     }
 

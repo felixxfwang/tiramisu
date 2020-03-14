@@ -1,5 +1,4 @@
 apply from: rootProject.file('gradle/modular.gradle')
-apply from: rootProject.file('gradle/release.gradle')
 apply from: rootProject.file('gradle/test.gradle')
 
 android {
