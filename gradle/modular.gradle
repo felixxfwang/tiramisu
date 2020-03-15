@@ -51,6 +51,9 @@ android {
             }
         }
     }
+
+//    def prefix = project.name.replace('-', '_').toLowerCase()
+//    resourcePrefix "${prefix}_"
 }
 
 dependencies {
