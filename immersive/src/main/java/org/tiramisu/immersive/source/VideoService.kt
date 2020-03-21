@@ -1,7 +1,7 @@
 package org.tiramisu.immersive.source
 
-import org.tiramisu.network.service.HttpCallback
-import org.tiramisu.network.service.TiramisuHttp
+import org.tiramisu.http.HttpCallback
+import org.tiramisu.http.TiramisuHttp
 
 typealias VideoQueryCallback = HttpCallback<VideoHttpParam, VideoQueryResult>
 

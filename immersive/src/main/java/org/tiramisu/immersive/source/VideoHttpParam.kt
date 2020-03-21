@@ -1,6 +1,6 @@
 package org.tiramisu.immersive.source
 
-import org.tiramisu.network.service.HttpParam
+import org.tiramisu.http.HttpParam
 
 class VideoHttpParam(var page: Int, val count: Int = 10) : HttpParam() {
 

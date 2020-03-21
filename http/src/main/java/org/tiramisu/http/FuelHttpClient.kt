@@ -1,4 +1,4 @@
-package org.tiramisu.network.service
+package org.tiramisu.http
 
 import com.github.kittinunf.fuel.core.*
 import com.github.kittinunf.fuel.httpDelete

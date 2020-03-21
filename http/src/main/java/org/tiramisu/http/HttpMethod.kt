@@ -1,3 +1,3 @@
-package org.tiramisu.network.service
+package org.tiramisu.http
 
 enum class HttpMethod { GET, POST, PUT, DELETE }

@@ -1,4 +1,4 @@
-package org.tiramisu.network.service
+package org.tiramisu.http
 
 abstract class HttpParam {
 
