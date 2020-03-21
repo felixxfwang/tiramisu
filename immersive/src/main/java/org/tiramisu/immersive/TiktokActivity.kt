@@ -7,13 +7,10 @@ import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.biz.base.RT
 import org.tiramisu.log.TLog
-import org.tiramisu.network.service.VideoQueryResult
-import org.tiramisu.network.service.VideoService
-import org.tiramisu.network.service.retrofit
+import org.tiramisu.immersive.source.VideoQueryResult
+import org.tiramisu.immersive.source.VideoService
+import org.tiramisu.network.service.HttpCallback
 import org.tiramisu.player.TMVideoView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Route(path = RT.Immersive.TIKTOK)
 class TiktokActivity : BaseActivity() {
@@ -62,20 +59,13 @@ class TiktokActivity : BaseActivity() {
     }
 
     private fun queryVideos() {
-        retrofit.create(VideoService::class.java).getVideos().enqueue(object : Callback<VideoQueryResult> {
-            override fun onFailure(call: Call<VideoQueryResult>, t: Throwable) {
-                TLog.e(TAG, "queryVideos failed", t)
+        VideoService.getVideos(object : HttpCallback<VideoQueryResult> {
+            override fun onSuccess(data: VideoQueryResult) {
+                adapter.setData(data.videos)
             }
 
-            override fun onResponse(
-                call: Call<VideoQueryResult>,
-                response: Response<VideoQueryResult>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        adapter.setData(it.videos)
-                    }
-                }
+            override fun onError(errorCode: Int, errorMessage: String?) {
+                TLog.e(TAG, "queryVideos failed: errorCode=$errorCode, errorMsg: $errorMessage")
             }
         })
     }

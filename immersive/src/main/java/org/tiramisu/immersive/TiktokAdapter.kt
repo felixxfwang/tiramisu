@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import org.tiramisu.log.TLog
-import org.tiramisu.network.service.Video
+import org.tiramisu.immersive.source.Video
 import org.tiramisu.player.TMVideoView
 
 class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {

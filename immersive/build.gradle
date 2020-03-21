@@ -13,7 +13,7 @@ dependencies {
 
     implementation project(':base')
     implementation project(':utils')
-    implementation project(':net-service')
+    implementation project(':http')
     implementation project(':player')
     implementation project(':log')
 
