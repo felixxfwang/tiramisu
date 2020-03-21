@@ -10,6 +10,7 @@ import org.tiramisu.log.TLog
 import org.tiramisu.network.service.VideoQueryResult
 import org.tiramisu.network.service.VideoService
 import org.tiramisu.network.service.retrofit
+import org.tiramisu.player.TMVideoView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +33,17 @@ class TiktokActivity : BaseActivity() {
         initView()
 
         queryVideos()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        TMVideoView.pause()
+    }
+
+    override fun onBackPressed() {
+        if (!TMVideoView.back()) {
+            super.onBackPressed()
+        }
     }
 
     private fun initView() {

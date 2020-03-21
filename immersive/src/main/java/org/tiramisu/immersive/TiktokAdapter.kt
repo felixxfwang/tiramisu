@@ -48,7 +48,7 @@ class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokA
         val video = dataList[position]
         TLog.i(TAG, "onBindViewHolder: position: $position, videoView: ${holder.videoView.hashCode()}")
         holder.thumbImage.setImageURI(Uri.parse(video.cover_url))
-        holder.videoView.setUp(video.video_url, video.video_title)
+        holder.videoView.setUp(video.video_url)
     }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
