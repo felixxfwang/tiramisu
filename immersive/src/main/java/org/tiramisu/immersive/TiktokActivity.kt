@@ -41,12 +41,10 @@ class TiktokActivity : BaseActivity() {
         layoutManager.setOnViewPagerListener(object : OnSnapListener {
             override fun onPageUnselected(isNext: Boolean, position: Int) {
                 TLog.i(TAG, "onPageUnselected:$position isNext:$isNext")
-                pauseVideo(position)
             }
 
             override fun onPageSelected(position: Int, bottom: Boolean) {
                 TLog.i(TAG, "onPageSelected:$position isBottom:$bottom")
-                playVideo(position)
             }
         })
     }
@@ -68,21 +66,5 @@ class TiktokActivity : BaseActivity() {
                 }
             }
         })
-    }
-
-    private fun pauseVideo(position: Int) {
-        (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
-            it.videoView.pause()
-            it.thumbImage.animate().alpha(1f).start()
-            it.playImage.animate().alpha(0f).start()
-            TLog.i(TAG, "releaseVideo: childCount=${recycler.childCount},  videoView: ${it.videoView.hashCode()}")
-        }
-    }
-
-    private fun playVideo(position: Int) {
-        (recycler.findViewHolderForAdapterPosition(position) as? TiktokAdapter.ViewHolder)?.let {
-            it.videoView.start()
-            TLog.i(TAG, "playVideo: childCount=${recycler.childCount}, videoView: ${it.videoView.hashCode()}")
-        }
     }
 }
