@@ -7,7 +7,6 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @author felixxfwang
  * @date   2019-10-11
  */
-@SuppressWarnings("TooManyFunctions", "EmptyFunctionBlock")
 interface IAdapter<T: BaseAdapterData> : IPluggableAdapter<T>, ILifecycleAdapter, IRecycleViewAdapter<T> {
 
     /**

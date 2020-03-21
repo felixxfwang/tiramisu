@@ -3,6 +3,7 @@ package org.tiramisu.feeds.holder;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.tiramisu.feeds.Action1;
@@ -63,21 +64,20 @@ public abstract class BaseViewHolder<D> extends LifecycleViewHolder {
         return mData;
     }
 
-    @SuppressWarnings("all")
     public void checkAndBindData(D data, int position, List<Object> payloads) {
         try {
             mData = data;
             if (payloads == null) {
-                onBindData((D) data);
+                onBindData(data);
             } else {
-                onBindData((D) data, payloads);
+                onBindData(data, payloads);
             }
         } catch (Exception e) {
             onBindDataFailed(e);
         }
     }
 
-    public abstract void onBindData(D data);
+    public abstract void onBindData(@NonNull D data);
 
     /**
      * 提供默认实现

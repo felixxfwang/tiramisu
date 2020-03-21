@@ -1,26 +1,30 @@
 package org.tiramisu.immersive
 
-import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
-import org.tiramisu.log.TLog
+import org.tiramisu.feeds.adapter.BaseAdapter
+import org.tiramisu.feeds.holder.BaseViewHolder
 import org.tiramisu.immersive.data.Video
+import org.tiramisu.log.TLog
 import org.tiramisu.player.TMVideoView
 
-class TiktokAdapter(private val context: Context) : RecyclerView.Adapter<TiktokAdapter.ViewHolder>() {
+class TiktokAdapter : BaseAdapter<Video, TiktokAdapter.ViewHolder>() {
 
     companion object {
         private const val TAG = "TiktokAdapter"
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : BaseViewHolder<Video>(itemView) {
         var thumbImage: ImageView = itemView.findViewById(R.id.img_thumb)
         var videoView: TMVideoView = itemView.findViewById(R.id.video_view)
         var playImage: ImageView = itemView.findViewById(R.id.img_play)
+
+        override fun onBindData(data: Video) {
+
+        }
     }
 
     private val dataList = ArrayList<Video>()

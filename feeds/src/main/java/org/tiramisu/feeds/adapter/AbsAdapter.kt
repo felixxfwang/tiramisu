@@ -11,5 +11,5 @@ import org.tiramisu.feeds.data.BaseAdapterData
 abstract class AbsAdapter<T : BaseAdapterData, VH : RecyclerView.ViewHolder>
     : RecyclerView.Adapter<VH>(), IAdapter<T> {
 
-    final override fun onBindViewHolder(holder: VH, position: Int) {}
+    override fun onBindViewHolder(holder: VH, position: Int) {}
 }
