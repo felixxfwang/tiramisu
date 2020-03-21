@@ -10,25 +10,24 @@ import java.io.Reader
 
 class FuelHttpClient : HttpClient {
 
-    override fun <T: Any> sendHttpRequest(
+    override fun <P : HttpParam, T : Any> sendHttpRequest(
         url: String,
         method: HttpMethod,
         clazz: Class<T>,
-        params: Map<String, String>,
-        headers: Map<String, String>?,
-        callback: HttpCallback<T>?
+        params: P,
+        headers: Map<String, Any>?,
+        callback: HttpCallback<P, T>?
     ) {
         buildRequest(url, method, params, headers)
-            .response(FuelResponseDeserializable(clazz), FuelResponseHandler(callback))
+            .response(FuelResponseDeserializable(clazz), FuelResponseHandler(params, callback))
             .join()
     }
 
-    private fun buildRequest(
+    private fun <P: HttpParam> buildRequest(
         url: String, method: HttpMethod,
-        params: Map<String, String>,
-        headers: Map<String, String>?
+        params: P, headers: Map<String, Any>?
     ): Request {
-        val parameters = params.entries.map { it.key to it.value }
+        val parameters = params.toMap().entries.map { it.key to it.value }
         val request = when (method) {
             HttpMethod.GET -> url.httpGet(parameters)
             HttpMethod.POST -> url.httpGet(parameters)
@@ -47,18 +46,19 @@ class FuelHttpClient : HttpClient {
         }
     }
 
-    class FuelResponseHandler<T: Any>(
-        private val callback: HttpCallback<T>?
+    class FuelResponseHandler<P: HttpParam, T: Any>(
+        private val param: P,
+        private val callback: HttpCallback<P, T>?
     ) : ResponseResultHandler<T> {
         override fun invoke(request: Request, response: Response, result: Result<T, FuelError>) {
             when (result) {
                 is Result.Failure -> {
                     val ex = result.getException()
-                    callback?.onError(response.statusCode, ex.message)
+                    callback?.onError(param, response.statusCode, ex.message)
                 }
                 is Result.Success -> {
                     val data = result.get()
-                    callback?.onSuccess(data)
+                    callback?.onSuccess(param, data)
                 }
             }
         }

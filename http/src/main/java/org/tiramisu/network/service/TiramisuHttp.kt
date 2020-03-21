@@ -16,38 +16,34 @@ class TiramisuHttp {
 
     val client: HttpClient = FuelHttpClient()
 
-    inline fun <reified T : Any> get(
-        url: String,
-        params: Map<String, String> = emptyMap(),
-        headers: Map<String, String>? = null,
-        callback: HttpCallback<T>? = null
+    inline fun <P: HttpParam, reified T : Any> get(
+        url: String, params: P,
+        headers: Map<String, Any>? = null,
+        callback: HttpCallback<P, T>? = null
     ) {
         client.sendHttpRequest(wrapUrl(url), HttpMethod.GET, T::class.java, params, headers, callback)
     }
 
-    inline fun <reified T : Any> post(
-        url: String,
-        params: Map<String, String> = emptyMap(),
-        headers: Map<String, String>? = null,
-        callback: HttpCallback<T>? = null
+    inline fun <P: HttpParam, reified T : Any> post(
+        url: String, params: P,
+        headers: Map<String, Any>? = null,
+        callback: HttpCallback<P, T>? = null
     ) {
         client.sendHttpRequest(wrapUrl(url), HttpMethod.POST, T::class.java, params, headers, callback)
     }
 
-    inline fun <reified T : Any> put(
-        url: String,
-        params: Map<String, String> = emptyMap(),
-        headers: Map<String, String>? = null,
-        callback: HttpCallback<T>? = null
+    inline fun <P: HttpParam, reified T : Any> put(
+        url: String, params: P,
+        headers: Map<String, Any>? = null,
+        callback: HttpCallback<P, T>? = null
     ) {
         client.sendHttpRequest(wrapUrl(url), HttpMethod.PUT, T::class.java, params, headers, callback)
     }
 
-    inline fun <reified T : Any> delete(
-        url: String,
-        params: Map<String, String> = emptyMap(),
-        headers: Map<String, String>? = null,
-        callback: HttpCallback<T>? = null
+    inline fun <P: HttpParam, reified T : Any> delete(
+        url: String, params: P,
+        headers: Map<String, Any>? = null,
+        callback: HttpCallback<P, T>? = null
     ) {
         client.sendHttpRequest(wrapUrl(url), HttpMethod.DELETE, T::class.java, params, headers, callback)
     }

@@ -1,8 +1,8 @@
 package org.tiramisu.network.service
 
-interface HttpCallback<T> {
+interface HttpCallback<P: HttpParam, T> {
 
-    fun onSuccess(data: T)
+    fun onSuccess(param: P, data: T)
 
-    fun onError(errorCode: Int, errorMessage: String?)
+    fun onError(param: P, errorCode: Int, errorMessage: String?)
 }
