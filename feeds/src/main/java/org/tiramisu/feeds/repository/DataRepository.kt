@@ -1,4 +1,4 @@
-package org.tiramisu.feeds
+package org.tiramisu.feeds.repository
 
 import org.tiramisu.repository.DataRepository
 import org.tiramisu.repository.LoadCallback

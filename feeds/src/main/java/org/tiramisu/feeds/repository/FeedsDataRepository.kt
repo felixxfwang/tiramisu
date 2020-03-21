@@ -1,4 +1,4 @@
-package org.tiramisu.feeds
+package org.tiramisu.feeds.repository
 
 import org.tiramisu.repository.BaseDataRepository
 import org.tiramisu.repository.DataCallback
@@ -6,7 +6,8 @@ import org.tiramisu.repository.LoadCallback
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
-    : BaseDataRepository<P, D, REQ, RSP>(), PagingDataRepository<P, D> {
+    : BaseDataRepository<P, D, REQ, RSP>(),
+    PagingDataRepository<P, D> {
 
     companion object {
         private const val TAG = "FeedsDataRepository"
