@@ -9,5 +9,5 @@ interface HttpClient {
         params: P,
         headers: Map<String, Any>?,
         callback: HttpCallback<P, T>?
-    )
+    ): HttpCancellable
 }

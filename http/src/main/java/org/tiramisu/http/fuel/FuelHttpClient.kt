@@ -1,4 +1,4 @@
-package org.tiramisu.http
+package org.tiramisu.http.fuel
 
 import com.github.kittinunf.fuel.core.*
 import com.github.kittinunf.fuel.httpDelete
@@ -6,6 +6,7 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPut
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
+import org.tiramisu.http.*
 import java.io.Reader
 
 class FuelHttpClient : HttpClient {
@@ -17,10 +18,14 @@ class FuelHttpClient : HttpClient {
         params: P,
         headers: Map<String, Any>?,
         callback: HttpCallback<P, T>?
-    ) {
-        buildRequest(url, method, params, headers)
-            .response(FuelResponseDeserializable(clazz), FuelResponseHandler(params, callback))
-            .join()
+    ): HttpCancellable {
+        val request = buildRequest(url, method, params, headers)
+            .response(
+                FuelResponseDeserializable(clazz),
+                FuelResponseHandler(params, callback)
+            )
+        request.join()
+        return FuelCancellable(request)
     }
 
     private fun <P: HttpParam> buildRequest(
