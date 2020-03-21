@@ -19,4 +19,8 @@ dependencies {
 
     implementation project(':modular')
     implementation project(':biz-base')
+
+    implementation project(':feeds')
+    implementation project(':repository')
+    implementation project(':repository-http')
 }

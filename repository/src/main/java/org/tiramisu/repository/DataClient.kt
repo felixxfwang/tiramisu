@@ -1,6 +1,6 @@
 package org.tiramisu.repository
 
-interface DataClient {
+interface DataClient<PARAM, RESULT> {
 
-    fun <PARAM, RESULT> sendDataRequest(param: PARAM, callback: DataCallback<PARAM, RESULT>): Disposable
+    fun sendDataRequest(param: PARAM, callback: DataCallback<PARAM, RESULT>): Disposable
 }

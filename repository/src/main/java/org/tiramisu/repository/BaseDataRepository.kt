@@ -1,8 +1,8 @@
 package org.tiramisu.repository
 
-abstract class BaseDataRepository<P, D>(
-    protected val client: DataClient
-) : DataRepository<P, D> {
+abstract class BaseDataRepository<P, D, REQ, RSP> : DataRepository<P, D> {
+
+    protected val client: DataClient<REQ, RSP> by lazy { getDataClient() }
 
     protected var request: Disposable? = null
 
@@ -11,4 +11,6 @@ abstract class BaseDataRepository<P, D>(
             request?.dispose()
         }
     }
+
+    protected abstract fun getDataClient(): DataClient<REQ, RSP>
 }

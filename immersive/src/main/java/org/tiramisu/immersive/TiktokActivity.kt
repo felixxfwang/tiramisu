@@ -6,11 +6,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.biz.base.RT
-import org.tiramisu.immersive.source.VideoQueryCallback
-import org.tiramisu.immersive.source.VideoHttpParam
+import org.tiramisu.immersive.repository.VideoQueryCallback
+import org.tiramisu.immersive.data.VideoQueryParam
 import org.tiramisu.log.TLog
-import org.tiramisu.immersive.source.VideoQueryResult
-import org.tiramisu.immersive.source.VideoService
+import org.tiramisu.immersive.data.VideoQueryResult
 import org.tiramisu.player.TMVideoView
 
 @Route(path = RT.Immersive.TIKTOK)
@@ -60,11 +59,12 @@ class TiktokActivity : BaseActivity() {
     }
 
 
-    private val param = VideoHttpParam(0)
+    private val param = VideoQueryParam(0)
 
     private fun queryVideos() {
-        VideoService.getVideos(param, object : VideoQueryCallback {
-            override fun onSuccess(param: VideoHttpParam, data: VideoQueryResult) {
+        VideoService.getVideos(param, object :
+            VideoQueryCallback {
+            override fun onSuccess(param: VideoQueryParam, data: VideoQueryResult) {
                 if (param.page == 0) {
                     adapter.setData(data.videos)
                 } else {
@@ -72,7 +72,7 @@ class TiktokActivity : BaseActivity() {
                 }
             }
 
-            override fun onError(param: VideoHttpParam, errorCode: Int, errorMessage: String?) {
+            override fun onError(param: VideoQueryParam, errorCode: Int, errorMessage: String?) {
                 TLog.e(TAG, "queryVideos failed: errorCode=$errorCode, errorMsg: $errorMessage")
             }
         })

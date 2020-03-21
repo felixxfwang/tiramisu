@@ -1,4 +1,4 @@
-package org.tiramisu.immersive.source
+package org.tiramisu.immersive.data
 
 data class Video(
     val cover_url: String,

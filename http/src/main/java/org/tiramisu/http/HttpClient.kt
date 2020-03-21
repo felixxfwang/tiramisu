@@ -7,7 +7,7 @@ interface HttpClient {
         method: HttpMethod,
         clazz: Class<T>,
         params: P,
-        headers: Map<String, Any>?,
-        callback: HttpCallback<P, T>?
+        headers: Map<String, Any>? = null,
+        callback: HttpCallback<P, T>? = null
     ): HttpCancellable
 }
