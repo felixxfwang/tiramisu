@@ -2,6 +2,7 @@ package org.tiramisu.immersive
 
 import android.app.Application
 import com.google.auto.service.AutoService
+import org.tiramisu.feeds.holder.ViewHolderRegister
 import org.tiramisu.log.TLog
 import org.tiramisu.modular.BaseModule
 import org.tiramisu.modular.IModule
@@ -17,8 +18,10 @@ class ImmersiveModule: BaseModule() {
     override fun name(): String = MODULE_NAME
 
     override fun initialize(application: Application) {
-        TLog.i(TAG, "initialize.")
         super.initialize(application)
+        TLog.i(TAG, "initialize.")
+
+        ViewHolderRegister.registerExtraCreator(TiktokViewHolderCreator())
     }
 
     override fun unload() {

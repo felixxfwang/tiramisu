@@ -19,8 +19,8 @@ import org.tiramisu.log.TLog
  * @author felixxfwang
  * @date   2019-09-12
  */
-open class BaseLifecycleAdapter<T : BaseAdapterData>
-    : BaseAdapter<T, AbstractViewHolder>(), IListViewLifecycle, IListWriteBackHandler {
+open class BaseLifecycleAdapter<T : BaseAdapterData, VH: AbstractViewHolder>
+    : BaseAdapter<T, VH>(), IListViewLifecycle, IListWriteBackHandler {
 
     companion object {
         private const val TAG = "BaseLifecycleAdapter"
@@ -70,22 +70,22 @@ open class BaseLifecycleAdapter<T : BaseAdapterData>
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val createStart = System.currentTimeMillis()
         plugins.onPreCreateViewHolder(parent, viewType)
 
         val holder = ViewHolderCreator.create(parent, viewType)
 
         plugins.onPostCreateViewHolder(parent, viewType, holder, createStart)
-        return holder
+        return holder as VH
     }
 
-    override fun onViewRecycled(holder: AbstractViewHolder) {
+    override fun onViewRecycled(holder: VH) {
         super.onViewRecycled(holder)
         holder.onRecycled()
     }
 
-    override fun onBindViewHolder(holder: AbstractViewHolder, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>) {
         val bindStart = System.currentTimeMillis()
         //插件貌似不需要使用到payloads参数，就先不改它
         plugins.onPreBindViewHolder(holder, position)
@@ -115,7 +115,7 @@ open class BaseLifecycleAdapter<T : BaseAdapterData>
     /**
      * ViewHolder 生命周期，attach
      */
-    override fun onViewAttachedToWindow(holder: AbstractViewHolder) {
+    override fun onViewAttachedToWindow(holder: VH) {
         super.onViewAttachedToWindow(holder)
         if (holder is LifecycleViewHolder) {
             holder.notifyAttachedToWindow(recyclerView)
@@ -125,7 +125,7 @@ open class BaseLifecycleAdapter<T : BaseAdapterData>
     /**
      * ViewHolder 生命周期，detach
      */
-    override fun onViewDetachedFromWindow(holder: AbstractViewHolder) {
+    override fun onViewDetachedFromWindow(holder: VH) {
         super.onViewDetachedFromWindow(holder)
         if (holder is LifecycleViewHolder) {
             holder.notifyDetachedFromWindow(recyclerView)
