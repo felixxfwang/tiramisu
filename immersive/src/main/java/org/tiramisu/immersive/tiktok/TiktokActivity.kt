@@ -1,4 +1,4 @@
-package org.tiramisu.immersive
+package org.tiramisu.immersive.tiktok
 
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +10,7 @@ import org.tiramisu.feeds.plugins.FeedPagingPlugin
 import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.LoadInitialCallback
 import org.tiramisu.feeds.repository.LoadMoreCallback
+import org.tiramisu.immersive.R
 import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.log.TLog
 import org.tiramisu.immersive.repository.VideoFeedsRepository

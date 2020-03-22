@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import org.tiramisu.biz.base.DataConstants
 import org.tiramisu.feeds.holder.BaseViewHolder
 import org.tiramisu.feeds.holder.IViewHolderCreator
+import org.tiramisu.immersive.tiktok.TiktokViewHolder
 
 class TiktokViewHolderCreator : IViewHolderCreator{
 

@@ -8,7 +8,7 @@ import org.tiramisu.modular.BaseModule
 import org.tiramisu.modular.IModule
 
 @AutoService(IModule::class)
-class ImmersiveModule: BaseModule() {
+class TiktokModule: BaseModule() {
 
     companion object {
         private const val TAG = "ImmersiveModule"

@@ -1,9 +1,10 @@
-package org.tiramisu.immersive
+package org.tiramisu.immersive.tiktok
 
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import org.tiramisu.feeds.holder.BaseViewHolder
+import org.tiramisu.immersive.R
 import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.log.TLog
 import org.tiramisu.player.TMVideoView

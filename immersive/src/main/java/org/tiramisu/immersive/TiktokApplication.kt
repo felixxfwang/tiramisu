@@ -1,21 +1,19 @@
 package org.tiramisu.immersive
 
 import org.tiramisu.base.BaseApplication
-import org.tiramisu.modular.IModule
-import java.util.*
+import org.tiramisu.modular.ModularManager
 
 class TiktokApplication : BaseApplication() {
-
-    private val modules = ServiceLoader.load(IModule::class.java)
+    private val modular = ModularManager()
 
     override fun onCreate() {
         super.onCreate()
 
-        modules.forEach { it.initialize(this) }
+        modular.initialize(this)
     }
 
     override fun onTerminate() {
         super.onTerminate()
-        modules.forEach { it.unload() }
+        modular.unload()
     }
 }

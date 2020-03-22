@@ -1,4 +1,4 @@
-package org.tiramisu.immersive
+package org.tiramisu.immersive.tiktok
 
 import org.tiramisu.feeds.adapter.BaseLifecycleAdapter
 import org.tiramisu.immersive.data.VideoData

@@ -1,4 +1,4 @@
-package org.tiramisu.immersive
+package org.tiramisu.immersive.tiktok
 
 import android.content.Context
 import android.view.View
