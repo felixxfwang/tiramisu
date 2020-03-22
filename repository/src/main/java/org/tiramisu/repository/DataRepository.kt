@@ -38,7 +38,7 @@ interface LoadDataCallback<P, T> : LoadCallback<P, T> {
     /**
      * 首次刷新失败
      */
-    fun onLoadDataFailed(param: P, errorCode: Int, errorMsg: String?)
+    fun onLoadDataFailed(param: P, errorCode: Int, errorMsg: String?) {}
 
     /**
      * 首次刷新完成（成功和失败都会回调）

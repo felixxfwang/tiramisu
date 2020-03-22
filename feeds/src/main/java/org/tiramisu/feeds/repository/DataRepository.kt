@@ -43,7 +43,7 @@ interface LoadMoreCallback<P, T> : LoadCallback<P, T> {
     /**
      * 加载更多请求失败的回调
      */
-    fun onLoadMoreFailed(param: P, errorCode: Int, errorMsg: String?)
+    fun onLoadMoreFailed(param: P, errorCode: Int, errorMsg: String?) {}
 
     /**
      * 加载更多请求完成的回调

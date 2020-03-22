@@ -16,7 +16,7 @@ import org.tiramisu.immersive.repository.VideoFeedsRepository
 import org.tiramisu.player.TMVideoView
 
 @Route(path = RT.Immersive.TIKTOK)
-class TiktokActivity : BaseActivity(),
+class TiktokActivity : BaseActivity(), OnSnapListener,
     LoadInitialCallback<FeedReqParameter, List<VideoData>>,
     LoadMoreCallback<FeedReqParameter, List<VideoData>> {
 
@@ -25,11 +25,11 @@ class TiktokActivity : BaseActivity(),
     }
 
     private val repository = VideoFeedsRepository()
-    private val req = FeedReqParameter(3)
+    private val req = FeedReqParameter()
 
     private val adapter by lazy {
         TiktokAdapter().apply {
-            addAdapterPlugin(FeedPagingPlugin(repository, req, 2, this@TiktokActivity))
+            addAdapterPlugin(FeedPagingPlugin(repository, req, 5, this@TiktokActivity))
         }
     }
     private val layoutManager by lazy {
@@ -59,30 +59,22 @@ class TiktokActivity : BaseActivity(),
         recycler.layoutManager = layoutManager
         recycler.adapter = adapter
 
-        layoutManager.setOnViewPagerListener(object : OnSnapListener {
-            override fun onPageUnselected(isNext: Boolean, position: Int) {
-                TLog.i(TAG, "onPageUnselected:$position isNext:$isNext")
-            }
+        layoutManager.setOnViewPagerListener(this)
+    }
 
-            override fun onPageSelected(position: Int, bottom: Boolean) {
-                TLog.i(TAG, "onPageSelected:$position isBottom:$bottom")
-            }
-        })
+    override fun onPageUnselected(isNext: Boolean, position: Int) {
+        TLog.i(TAG, "onPageUnselected:$position isNext:$isNext")
+    }
+
+    override fun onPageSelected(position: Int, bottom: Boolean) {
+        TLog.i(TAG, "onPageSelected:$position isBottom:$bottom")
     }
 
     override fun onLoadDataSuccess(param: FeedReqParameter, data: List<VideoData>) {
         adapter.setAdapterData(data)
     }
 
-    override fun onLoadDataFailed(param: FeedReqParameter, errorCode: Int, errorMsg: String?) {
-
-    }
-
     override fun onLoadMoreSuccess(param: FeedReqParameter, data: List<VideoData>, isLastPage: Boolean) {
         adapter.addAdapterData(data)
-    }
-
-    override fun onLoadMoreFailed(param: FeedReqParameter, errorCode: Int, errorMsg: String?) {
-
     }
 }
