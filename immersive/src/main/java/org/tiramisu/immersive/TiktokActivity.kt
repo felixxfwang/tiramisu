@@ -10,26 +10,26 @@ import org.tiramisu.feeds.plugins.FeedPagingPlugin
 import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.LoadInitialCallback
 import org.tiramisu.feeds.repository.LoadMoreCallback
-import org.tiramisu.immersive.data.Video
+import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.log.TLog
 import org.tiramisu.immersive.repository.VideoFeedsRepository
 import org.tiramisu.player.TMVideoView
 
 @Route(path = RT.Immersive.TIKTOK)
 class TiktokActivity : BaseActivity(),
-    LoadInitialCallback<FeedReqParameter, List<Video>>,
-    LoadMoreCallback<FeedReqParameter, List<Video>> {
+    LoadInitialCallback<FeedReqParameter, List<VideoData>>,
+    LoadMoreCallback<FeedReqParameter, List<VideoData>> {
 
     companion object {
         private const val TAG = "MainActivity"
     }
 
     private val repository = VideoFeedsRepository()
-    private val req = FeedReqParameter()
+    private val req = FeedReqParameter(3)
 
     private val adapter by lazy {
         TiktokAdapter().apply {
-            addAdapterPlugin(FeedPagingPlugin(repository, req, 10, this@TiktokActivity))
+            addAdapterPlugin(FeedPagingPlugin(repository, req, 2, this@TiktokActivity))
         }
     }
     private val layoutManager by lazy {
@@ -70,7 +70,7 @@ class TiktokActivity : BaseActivity(),
         })
     }
 
-    override fun onLoadDataSuccess(param: FeedReqParameter, data: List<Video>) {
+    override fun onLoadDataSuccess(param: FeedReqParameter, data: List<VideoData>) {
         adapter.setAdapterData(data)
     }
 
@@ -78,7 +78,7 @@ class TiktokActivity : BaseActivity(),
 
     }
 
-    override fun onLoadMoreSuccess(param: FeedReqParameter, data: List<Video>, isLastPage: Boolean) {
+    override fun onLoadMoreSuccess(param: FeedReqParameter, data: List<VideoData>, isLastPage: Boolean) {
         adapter.addAdapterData(data)
     }
 

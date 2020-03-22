@@ -1,5 +1,6 @@
 package org.tiramisu.feeds.repository
 
+import org.tiramisu.log.TLog
 import org.tiramisu.repository.BaseDataRepository
 import org.tiramisu.repository.DataCallback
 import org.tiramisu.repository.LoadCallback
@@ -49,6 +50,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
         val intercepted = onRequestPreProcess(param, isLoadInitial, callback)
         if (!intercepted) {
             val req = getRequest(param, isLoadInitial)
+            TLog.i(TAG, "request: $req")
             request = client.sendDataRequest(req, object : DataCallback<REQ, RSP> {
                 override fun onSuccess(req: REQ, data: RSP) {
                     // 解析回包数据
@@ -59,6 +61,8 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
                     nextKey = getNextKeyFromRsp(req, data)
                     onResponsePostProcess(param, data, rsp, isLoadInitial, isLast)
 
+                    TLog.i(TAG, "onSuccess: $data")
+
                     // 回调给业务
                     onLoadSuccess(param, isLoadInitial, callback, rsp, isLast)
                     onLoadComplete(param, isLoadInitial, callback)
@@ -66,6 +70,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
                 }
 
                 override fun onError(req: REQ, errorCode: Int, errorMessage: String?) {
+                    TLog.e(TAG, "onError: errCode=$errorCode, errMsg: $errorMessage")
                     onLoadFailed(param, isLoadInitial, callback, errorCode, errorMessage)
                     onLoadComplete(param, isLoadInitial, callback)
                     setLoadingState(isLoadInitial, false)
