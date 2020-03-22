@@ -16,6 +16,7 @@ dependencies {
     implementation project(':http')
     implementation project(':player')
     implementation project(':log')
+    implementation project(':image')
 
     implementation project(':modular')
     implementation project(':biz-base')

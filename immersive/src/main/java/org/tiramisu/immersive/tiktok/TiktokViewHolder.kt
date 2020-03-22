@@ -1,9 +1,9 @@
 package org.tiramisu.immersive.tiktok
 
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import org.tiramisu.feeds.holder.BaseViewHolder
+import org.tiramisu.image.with
 import org.tiramisu.immersive.R
 import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.log.TLog
@@ -19,7 +19,7 @@ class TiktokViewHolder(itemView: View) : BaseViewHolder<VideoData>(itemView) {
 
         override fun onBindData(data: VideoData) {
                 TLog.i(TAG, "onBindViewHolder: position: $position, videoView: ${videoView.hashCode()}")
-                thumbImage.setImageURI(Uri.parse(data.video.cover_url))
+                thumbImage.with(context).load(data.video.cover_url)
                 videoView.setUp(data.video.video_url)
         }
 
