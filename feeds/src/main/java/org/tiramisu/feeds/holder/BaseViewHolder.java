@@ -6,8 +6,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.tiramisu.feeds.Action1;
-import org.tiramisu.feeds.behavior.IListLifecycleBehavior;
 import org.tiramisu.feeds.data.IChannelModel;
 import org.tiramisu.feeds.data.WriteBackData;
 import org.tiramisu.feeds.lifecycle.IListWriteBackHandler;
@@ -15,26 +13,17 @@ import org.tiramisu.feeds.lifecycle.IListWriteBackHandler;
 import java.util.List;
 
 /**
- * Created by genesisli on 2017/9/5.<br>
  * 注意：如果开启了全局复用，一些监听器需要在 bindData 时重新绑定<br>
  */
 public abstract class BaseViewHolder<D> extends LifecycleViewHolder {
 
     public BaseViewHolder(View itemView) {
         super(itemView);
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemViewClick(v, BaseViewHolder.this);
-            }
-        });
+        itemView.setOnClickListener(v -> onItemViewClick(v, BaseViewHolder.this));
 
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                onItemViewLongClick(v, BaseViewHolder.this);
-                return true;
-            }
+        itemView.setOnLongClickListener(v -> {
+            onItemViewLongClick(v, BaseViewHolder.this);
+            return true;
         });
     }
 
@@ -43,12 +32,7 @@ public abstract class BaseViewHolder<D> extends LifecycleViewHolder {
     public void setChannelData(final IChannelModel channelData) {
         this.channelPage = channelData;
         if (this.channelPage != null) {
-            dispatch(new Action1<IListLifecycleBehavior>() {
-                @Override
-                public void call(IListLifecycleBehavior behavior) {
-                    behavior.bindChannelModel(channelData);
-                }
-            });
+            dispatch(behavior -> behavior.bindChannelModel(channelData));
         }
     }
 
