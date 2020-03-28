@@ -5,18 +5,18 @@ import com.github.kittinunf.fuel.core.FuelManager
 import org.tiramisu.http.fuel.FuelHttpClient
 import java.security.KeyStore
 import java.security.cert.CertificateFactory
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManagerFactory
+import javax.net.ssl.*
 import kotlin.properties.Delegates
 
 class TiramisuHttp {
 
     companion object {
         private var context: Context by Delegates.notNull()
+        private var isDebug: Boolean = false
 
-        fun initialize(cxt: Context) {
+        fun initialize(cxt: Context, debug: Boolean) {
             context = cxt.applicationContext
+            isDebug = debug
         }
     }
 
@@ -68,6 +68,9 @@ class TiramisuHttp {
 
     private fun initFuelHttpClient(): HttpClient {
         FuelManager.instance.socketFactory = getSSLSocketFactory(context)
+        if (isDebug) {
+            FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
+        }
         return FuelHttpClient()
     }
 

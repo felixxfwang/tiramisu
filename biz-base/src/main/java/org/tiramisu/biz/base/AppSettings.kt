@@ -1,4 +1,5 @@
 package org.tiramisu.biz.base
 
-class AppSettings {
+object AppSettings {
+    const val isDebugVersion = true
 }
