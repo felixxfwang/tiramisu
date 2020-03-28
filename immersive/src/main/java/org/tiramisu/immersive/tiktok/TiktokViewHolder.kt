@@ -10,11 +10,22 @@ import org.tiramisu.player.TMVideoView
 
 class TiktokViewHolder(itemView: View) : BaseFeedViewHolder<VideoData>(itemView) {
 
-    val videoView = findView<TMVideoView>(R.id.video_view)
+    private val videoView = findView<TMVideoView>(R.id.video_view)
+    private val videoCover = findView<ImageView>(R.id.img_thumb)
 
     override fun onBindData(data: VideoData) {
-        findView<ImageView>(R.id.img_thumb).with(context).load(data.video.cover_url)
+        videoCover.with(context).load(data.video.cover_url)
         videoView.setUp(data.video.video_url)
+    }
+
+    fun play() {
+        videoView.start()
+        videoCover.visibility = View.INVISIBLE
+    }
+
+    fun pause() {
+        videoView.pause()
+//        videoCover.visibility = View.INVISIBLE
     }
 
 }

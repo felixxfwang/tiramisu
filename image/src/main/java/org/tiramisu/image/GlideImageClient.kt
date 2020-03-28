@@ -18,8 +18,11 @@ import java.io.File
 import java.net.URL
 
 class GlideImageClient : ImageLoadClient {
-    override fun load(context: Any, view: ImageView, imageUri: Any?) {
-        request(context)?.let { load(it, imageUri).into(view) }
+    override fun load(context: Any, view: ImageView, imageUri: Any?, options: ImageOptions?) {
+        request(context)?.let {
+            val builder = load(it, imageUri)
+            options(builder, options).into(view)
+        }
     }
 
     override fun load(context: Any, imageUri: Any?, callback: ImageLoadCallback) {
@@ -92,5 +95,11 @@ class GlideImageClient : ImageLoadClient {
             is Bitmap -> request.load(uri)
             else -> request.load(uri)
         }
+    }
+
+    private fun options(builder: RequestBuilder<Drawable>, options: ImageOptions?): RequestBuilder<Drawable> {
+        return options?.let { opt ->
+            builder
+        } ?: builder
     }
 }

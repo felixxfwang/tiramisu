@@ -12,8 +12,15 @@ class ImageRequest internal constructor(
     private val context: Any,
     private val view: ImageView
 ){
+    private var options: ImageOptions? = null
+
+    fun options(options: ImageOptions): ImageRequest {
+        this.options = options
+        return this
+    }
+
     fun load(imageUri: Any?) {
-        imageClient.load(context, view, imageUri)
+        imageClient.load(context, view, imageUri, options)
     }
 }
 
