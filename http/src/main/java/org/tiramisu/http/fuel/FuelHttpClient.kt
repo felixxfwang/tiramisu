@@ -35,7 +35,7 @@ class FuelHttpClient : HttpClient {
         clazz: Class<T>,
         params: P,
         headers: Map<String, Any>?
-    ): HttpResult<T, HttpException> {
+    ): HttpResult<T> {
         val (_, _, result) = buildRequest(url, method, params, headers)
             .responseObject(FuelResponseDeserializable(clazz))
         return when (result) {

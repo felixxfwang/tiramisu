@@ -23,5 +23,5 @@ interface HttpClient {
         clazz: Class<T>,
         params: P,
         headers: Map<String, Any>? = null
-    ): HttpResult<T, HttpException>
+    ): HttpResult<T>
 }

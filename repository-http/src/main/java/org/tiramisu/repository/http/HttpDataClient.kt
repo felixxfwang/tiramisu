@@ -5,13 +5,13 @@ import org.tiramisu.repository.DataCallback
 import org.tiramisu.repository.DataClient
 import org.tiramisu.repository.Disposable
 
-class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
+open class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
     baseUrl: String,
-    private val path: String,
-    private val rspClass: Class<RESULT>
+    protected val path: String,
+    protected val rspClass: Class<RESULT>
 ) : DataClient<PARAM, RESULT> {
 
-    private val http = TiramisuHttp().baseUrl(baseUrl)
+    protected val http = TiramisuHttp().baseUrl(baseUrl)
 
     override fun sendDataRequest(
         param: PARAM,

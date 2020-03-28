@@ -1,6 +1,8 @@
 package org.tiramisu.http
 
-sealed class HttpResult<out V : Any, out E : Exception> {
+typealias HttpResult<V> = Result<V, HttpException>
+
+sealed class Result<out V : Any, out E : Exception> {
 
     open operator fun component1(): V? = null
     open operator fun component2(): E? = null
@@ -12,7 +14,7 @@ sealed class HttpResult<out V : Any, out E : Exception> {
 
     abstract fun get(): V
 
-    class Success<out V : Any>(val value: V) : HttpResult<V, Nothing>() {
+    class Success<out V : Any>(val value: V) : Result<V, Nothing>() {
         override fun component1(): V? = value
 
         override fun get(): V = value
@@ -27,7 +29,7 @@ sealed class HttpResult<out V : Any, out E : Exception> {
         }
     }
 
-    class Failure<out E : Exception>(val error: E) : HttpResult<Nothing, E>() {
+    class Failure<out E : Exception>(val error: E) : Result<Nothing, E>() {
         override fun component2(): E? = error
 
         override fun get() = throw error
@@ -50,10 +52,10 @@ sealed class HttpResult<out V : Any, out E : Exception> {
 
         fun <V : Any> success(v: V) = Success(v)
 
-        fun <V : Any, E : Exception> of(value: V?, fail: (() -> E)): HttpResult<V, E> =
+        fun <V : Any, E : Exception> of(value: V?, fail: (() -> E)): Result<V, E> =
                 value?.let { success(it) } ?: error(fail())
 
-        fun <V : Any, E: Exception> of(f: () -> V): HttpResult<V, E> = try {
+        fun <V : Any, E: Exception> of(f: () -> V): Result<V, E> = try {
             success(f())
         } catch (ex: Exception) {
             error(ex as E)
