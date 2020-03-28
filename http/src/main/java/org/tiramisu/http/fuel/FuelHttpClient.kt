@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.httpPut
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import org.tiramisu.http.*
+import org.tiramisu.http.HttpException
 import java.io.Reader
 
 class FuelHttpClient : HttpClient {
@@ -26,6 +27,25 @@ class FuelHttpClient : HttpClient {
             )
         request.join()
         return FuelCancellable(request)
+    }
+
+    override fun <P : HttpParam, T : Any> sendHttpRequest(
+        url: String,
+        method: HttpMethod,
+        clazz: Class<T>,
+        params: P,
+        headers: Map<String, Any>?
+    ): HttpResult<T, HttpException> {
+        val (_, _, result) = buildRequest(url, method, params, headers)
+            .responseObject(FuelResponseDeserializable(clazz))
+        return when (result) {
+            is Result.Success -> HttpResult.success(result.get())
+            is Result.Failure -> {
+                val error = result.error
+                val exception = HttpException(error.response.statusCode, error.message, error.cause)
+                HttpResult.error(exception)
+            }
+        }
     }
 
     private fun <P: HttpParam> buildRequest(
@@ -59,7 +79,7 @@ class FuelHttpClient : HttpClient {
             when (result) {
                 is Result.Failure -> {
                     val ex = result.getException()
-                    callback?.onError(param, response.statusCode, ex.message)
+                    callback?.onError(param, HttpException(response.statusCode, ex.message))
                 }
                 is Result.Success -> {
                     val data = result.get()

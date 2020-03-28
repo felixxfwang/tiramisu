@@ -1,9 +1,6 @@
 package org.tiramisu.repository.http
 
-import org.tiramisu.http.HttpCallback
-import org.tiramisu.http.HttpMethod
-import org.tiramisu.http.HttpParam
-import org.tiramisu.http.TiramisuHttp
+import org.tiramisu.http.*
 import org.tiramisu.repository.DataCallback
 import org.tiramisu.repository.DataClient
 import org.tiramisu.repository.Disposable
@@ -31,8 +28,8 @@ class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
             callback.onSuccess(param, data)
         }
 
-        override fun onError(param: P, errorCode: Int, errorMessage: String?) {
-            callback.onError(param, errorCode, errorMessage)
+        override fun onError(param: P, error: HttpException) {
+            callback.onError(param, error.code, error.message)
         }
 
     }
