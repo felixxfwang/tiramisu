@@ -3,6 +3,7 @@ package org.tiramisu.immersive
 import android.app.Application
 import com.google.auto.service.AutoService
 import org.tiramisu.feeds.holder.ViewHolderRegister
+import org.tiramisu.http.TiramisuHttp
 import org.tiramisu.log.TLog
 import org.tiramisu.modular.BaseModule
 import org.tiramisu.modular.IModule
@@ -20,6 +21,8 @@ class TiktokModule: BaseModule() {
     override fun initialize(application: Application) {
         super.initialize(application)
         TLog.i(TAG, "initialize.")
+
+        TiramisuHttp.initialize(application)
 
         ViewHolderRegister.registerExtraCreator(TiktokViewHolderCreator())
     }

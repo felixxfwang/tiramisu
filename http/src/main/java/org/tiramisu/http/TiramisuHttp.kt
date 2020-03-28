@@ -1,8 +1,24 @@
 package org.tiramisu.http
 
+import android.content.Context
+import com.github.kittinunf.fuel.core.FuelManager
 import org.tiramisu.http.fuel.FuelHttpClient
+import java.security.KeyStore
+import java.security.cert.CertificateFactory
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManagerFactory
+import kotlin.properties.Delegates
 
 class TiramisuHttp {
+
+    companion object {
+        private var context: Context by Delegates.notNull()
+
+        fun initialize(cxt: Context) {
+            context = cxt.applicationContext
+        }
+    }
 
     private var baseUrl: String = ""
 
@@ -16,7 +32,7 @@ class TiramisuHttp {
         return baseUrl + url
     }
 
-    val client: HttpClient = FuelHttpClient()
+    val client: HttpClient = initFuelHttpClient()
 
     inline fun <P: HttpParam, reified T : Any> get(
         url: String, params: P,
@@ -48,5 +64,32 @@ class TiramisuHttp {
         callback: HttpCallback<P, T>? = null
     ) : HttpCancellable {
         return client.sendHttpRequest(wrapUrl(url), HttpMethod.DELETE, T::class.java, params, headers, callback)
+    }
+
+    private fun initFuelHttpClient(): HttpClient {
+        FuelManager.instance.socketFactory = getSSLSocketFactory(context)
+        return FuelHttpClient()
+    }
+
+    private fun getSSLSocketFactory(context: Context): SSLSocketFactory {
+        // 取到证书的输入流
+        val ca = context.assets.open("ca.crt").use {
+            CertificateFactory.getInstance("X.509").generateCertificate(it)
+        }
+
+        // 创建 Keystore 包含我们的证书
+        val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
+        keyStore.load(null)
+        keyStore.setCertificateEntry("anchor", ca)
+
+        // 创建一个 TrustManager 仅把 Keystore 中的证书 作为信任的锚点
+        val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
+        trustManagerFactory.init(keyStore)
+        val trustManagers = trustManagerFactory.trustManagers
+
+        // 用 TrustManager 初始化一个 SSLContext
+        val sslContext = SSLContext.getInstance("TLS")
+        sslContext.init(null, trustManagers, null)
+        return sslContext.socketFactory
     }
 }

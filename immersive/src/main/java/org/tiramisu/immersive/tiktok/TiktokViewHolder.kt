@@ -10,9 +10,11 @@ import org.tiramisu.player.TMVideoView
 
 class TiktokViewHolder(itemView: View) : BaseFeedViewHolder<VideoData>(itemView) {
 
+    val videoView = findView<TMVideoView>(R.id.video_view)
+
     override fun onBindData(data: VideoData) {
         findView<ImageView>(R.id.img_thumb).with(context).load(data.video.cover_url)
-        findView<TMVideoView>(R.id.video_view).setUp(data.video.video_url)
+        videoView.setUp(data.video.video_url)
     }
 
 }
