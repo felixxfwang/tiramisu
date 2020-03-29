@@ -4,6 +4,7 @@ buildscript {
     apply from: file('gradle/version.gradle')
 
     repositories {
+        mavenLocal()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
     }
@@ -12,16 +13,35 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.tencent.deploy:deploy:0.1.5'
     }
 }
 
 allprojects {
     repositories {
+        mavenLocal()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         google()
     }
+    group tiramisu_group
+    version tiramisu_version
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+apply plugin: 'deploy-plugin'
+
+deployer {
+    modules = ['annotations']
+    deployRepoUrl 'https://dl.bintray.com/felixwang1215/tiramisu'
+//    snapshotRepoUrl 'http://mirrors.tencent.com/repository/maven/thirdparty-snapshots/'
+    username MAVEN_USER
+    password MAVEN_PWD
+    groupId tiramisu_group
+    version tiramisu_version
+    enableSources true
+    enableDocs false
+    enableAutoTag true
 }
