@@ -1,6 +1,7 @@
 package org.tiramisu.immersive.repository
 
 import org.tiramisu.feeds.repository.FeedReqParameter
+import org.tiramisu.feeds.repository.FeedsCoroutineRepository
 import org.tiramisu.feeds.repository.FeedsDataRepository
 import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.immersive.data.VideoQueryParam

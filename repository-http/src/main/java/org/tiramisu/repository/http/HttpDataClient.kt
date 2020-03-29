@@ -1,9 +1,8 @@
 package org.tiramisu.repository.http
 
 import org.tiramisu.http.*
-import org.tiramisu.repository.DataCallback
-import org.tiramisu.repository.DataClient
-import org.tiramisu.repository.Disposable
+import org.tiramisu.http.Result
+import org.tiramisu.repository.*
 
 open class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
     baseUrl: String,
@@ -12,6 +11,13 @@ open class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
 ) : DataClient<PARAM, RESULT> {
 
     protected val http = TiramisuHttp().baseUrl(baseUrl)
+
+    override fun sendDataRequest(param: PARAM): DataResult<RESULT> {
+        return when (val result = http.client.sendHttpRequest(http.wrapUrl(path), HttpMethod.GET, rspClass, param)) {
+            is Result.Success -> DataResult.success(result.get())
+            is Result.Failure -> DataResult.error(DataException(result.error.code, result.error.message, result.error.cause))
+        }
+    }
 
     override fun sendDataRequest(
         param: PARAM,
@@ -29,7 +35,7 @@ open class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
         }
 
         override fun onError(param: P, error: HttpException) {
-            callback.onError(param, error.code, error.message)
+            callback.onError(param, DataException(error.code, error.message))
         }
 
     }

@@ -3,12 +3,12 @@ package org.tiramisu.feeds.repository
 import org.tiramisu.log.TLog
 import org.tiramisu.repository.BaseDataRepository
 import org.tiramisu.repository.DataCallback
+import org.tiramisu.repository.DataException
 import org.tiramisu.repository.LoadCallback
 import java.util.concurrent.atomic.AtomicBoolean
 
-abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
-    : BaseDataRepository<P, D, REQ, RSP>(),
-    PagingDataRepository<P, D> {
+abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY>()
+    : BaseDataRepository<P, D, REQ, RSP>(), PagingDataRepository<P, D> {
 
     companion object {
         private const val TAG = "FeedsDataRepository"
@@ -16,7 +16,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
 
     private val isLoadingInitial = AtomicBoolean(false)
     private val isLoadingAfter = AtomicBoolean(false)
-    private var isLastPage = AtomicBoolean(false)
+    protected var isLastPage = AtomicBoolean(false)
     protected var nextKey: KEY? = null
 
     override fun loadData(param: P, callback: LoadInitialCallback<P, D>?) = loadInitial(param, callback)
@@ -45,7 +45,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
 
     override fun isLastPage(): Boolean = isLastPage.get()
 
-    private fun sendDataRequest(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?) {
+    protected open fun sendDataRequest(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?) {
         setLoadingState(isLoadInitial, true)
         val intercepted = onRequestPreProcess(param, isLoadInitial, callback)
         if (!intercepted) {
@@ -69,9 +69,9 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
                     setLoadingState(isLoadInitial, false)
                 }
 
-                override fun onError(req: REQ, errorCode: Int, errorMessage: String?) {
-                    TLog.e(TAG, "onError: errCode=$errorCode, errMsg: $errorMessage")
-                    onLoadFailed(param, isLoadInitial, callback, errorCode, errorMessage)
+                override fun onError(req: REQ, error: DataException) {
+                    TLog.e(TAG, "onError: errCode=${error.code}, errMsg: ${error.message}")
+                    onLoadFailed(param, isLoadInitial, callback, error.code, error.message)
                     onLoadComplete(param, isLoadInitial, callback)
                     setLoadingState(isLoadInitial, false)
                 }
@@ -80,7 +80,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
         }
     }
 
-    private fun setLoadingState(isLoadInitial: Boolean, isLoading: Boolean) {
+    protected fun setLoadingState(isLoadInitial: Boolean, isLoading: Boolean) {
         if (isLoadInitial) {
             isLoadingInitial.set(isLoading)
         } else {
@@ -88,7 +88,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
         }
     }
 
-    private fun onLoadSuccess(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?, data: D, isLastPage: Boolean) {
+    protected fun onLoadSuccess(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?, data: D, isLastPage: Boolean) {
         if (isLoadInitial) {
             (callback as? LoadInitialCallback)?.onLoadDataSuccess(param, data)
         } else {
@@ -96,7 +96,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
         }
     }
 
-    private fun onLoadFailed(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?, code: Int, errorMessage: String?) {
+    protected fun onLoadFailed(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?, code: Int, errorMessage: String?) {
         if (isLoadInitial) {
             (callback as? LoadInitialCallback)?.onLoadDataFailed(param, code, errorMessage)
         } else {
@@ -104,7 +104,7 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP, KEY>()
         }
     }
 
-    private fun onLoadComplete(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?) {
+    protected fun onLoadComplete(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?) {
         if (isLoadInitial) {
             (callback as? LoadInitialCallback)?.onLoadDataComplete(param)
         } else {

@@ -4,5 +4,5 @@ interface DataCallback<P, R> {
 
     fun onSuccess(param: P, data: R)
 
-    fun onError(param: P, errorCode: Int, errorMessage: String?)
+    fun onError(param: P, error: DataException)
 }
