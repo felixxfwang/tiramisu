@@ -1,7 +1,7 @@
 package org.tiramisu.feeds.repository
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.tiramisu.log.TLog
@@ -13,7 +13,7 @@ abstract class FeedsCoroutineRepository<P: FeedReqParameter, D, REQ, RSP: Any, K
         private const val TAG = "FeedsCoroutineRepository"
     }
 
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private val scope: CoroutineScope = MainScope()
 
     override fun cancel() {
         scope.cancel()

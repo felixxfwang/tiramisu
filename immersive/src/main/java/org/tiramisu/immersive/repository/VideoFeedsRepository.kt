@@ -9,7 +9,7 @@ import org.tiramisu.immersive.data.VideoQueryResult
 import org.tiramisu.repository.DataClient
 import org.tiramisu.repository.http.HttpDataClient
 
-class VideoFeedsRepository : FeedsDataRepository<FeedReqParameter, List<VideoData>, VideoQueryParam, VideoQueryResult, Int>() {
+class VideoFeedsRepository : FeedsCoroutineRepository<FeedReqParameter, List<VideoData>, VideoQueryParam, VideoQueryResult, Int>() {
 
     override fun getRequest(param: FeedReqParameter, isLoadInitial: Boolean): VideoQueryParam {
         val page = if (isLoadInitial) 0 else nextKey ?: 0
