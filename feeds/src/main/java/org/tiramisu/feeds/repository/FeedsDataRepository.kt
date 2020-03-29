@@ -53,31 +53,50 @@ abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY>()
             TLog.i(TAG, "request: $req")
             request = client.sendDataRequest(req, object : DataCallback<REQ, RSP> {
                 override fun onSuccess(req: REQ, data: RSP) {
-                    // 解析回包数据
-                    val rsp = getDataListFromRsp(param, data, isLoadInitial)
-                    // 数据后处理
-                    val isLast = isLastPage(data)
-                    isLastPage.set(isLast)
-                    nextKey = getNextKeyFromRsp(req, data)
-                    onResponsePostProcess(param, data, rsp, isLoadInitial, isLast)
-
-                    TLog.i(TAG, "onSuccess: $data")
-
-                    // 回调给业务
-                    onLoadSuccess(param, isLoadInitial, callback, rsp, isLast)
-                    onLoadComplete(param, isLoadInitial, callback)
-                    setLoadingState(isLoadInitial, false)
+                    onLoadSuccess(param, data, isLoadInitial, req, callback)
                 }
 
                 override fun onError(req: REQ, error: DataException) {
-                    TLog.e(TAG, "onError: errCode=${error.code}, errMsg: ${error.message}")
-                    onLoadFailed(param, isLoadInitial, callback, error.code, error.message)
-                    onLoadComplete(param, isLoadInitial, callback)
-                    setLoadingState(isLoadInitial, false)
+                    onLoadFailed(error, param, isLoadInitial, callback)
                 }
 
             })
         }
+    }
+
+    protected fun onLoadFailed(
+        error: DataException,
+        param: P,
+        isLoadInitial: Boolean,
+        callback: LoadCallback<P, D>?
+    ) {
+        TLog.e(TAG, "onError: errCode=${error.code}, errMsg: ${error.message}")
+        onLoadFailed(param, isLoadInitial, callback, error.code, error.message)
+        onLoadComplete(param, isLoadInitial, callback)
+        setLoadingState(isLoadInitial, false)
+    }
+
+    protected fun onLoadSuccess(
+        param: P,
+        data: RSP,
+        isLoadInitial: Boolean,
+        req: REQ,
+        callback: LoadCallback<P, D>?
+    ) {
+        // 解析回包数据
+        val rsp = getDataListFromRsp(param, data, isLoadInitial)
+        // 数据后处理
+        val isLast = isLastPage(data)
+        isLastPage.set(isLast)
+        nextKey = getNextKeyFromRsp(req, data)
+        onResponsePostProcess(param, data, rsp, isLoadInitial, isLast)
+
+        TLog.i(TAG, "onSuccess: $data")
+
+        // 回调给业务
+        onLoadSuccess(param, isLoadInitial, callback, rsp, isLast)
+        onLoadComplete(param, isLoadInitial, callback)
+        setLoadingState(isLoadInitial, false)
     }
 
     protected fun setLoadingState(isLoadInitial: Boolean, isLoading: Boolean) {

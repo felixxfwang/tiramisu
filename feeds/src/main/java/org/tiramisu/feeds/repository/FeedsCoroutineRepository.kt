@@ -29,26 +29,10 @@ abstract class FeedsCoroutineRepository<P: FeedReqParameter, D, REQ, RSP: Any, K
                 val result = client.sendCoroutineRequest(req)
                 if (result.isSuccess()) {
                     val data = result.get()
-                    // 解析回包数据
-                    val rsp = getDataListFromRsp(param, data, isLoadInitial)
-                    // 数据后处理
-                    val isLast = isLastPage(data)
-                    isLastPage.set(isLast)
-                    nextKey = getNextKeyFromRsp(req, data)
-                    onResponsePostProcess(param, data, rsp, isLoadInitial, isLast)
-
-                    TLog.i(TAG, "onSuccess: $data")
-
-                    // 回调给业务
-                    onLoadSuccess(param, isLoadInitial, callback, rsp, isLast)
-                    onLoadComplete(param, isLoadInitial, callback)
-                    setLoadingState(isLoadInitial, false)
+                    onLoadSuccess(param, data, isLoadInitial, req, callback)
                 } else {
                     val error = (result as Result.Failure).getException()
-                    TLog.e(TAG, "onError: errCode=${error.code}, errMsg: ${error.message}")
-                    onLoadFailed(param, isLoadInitial, callback, error.code, error.message)
-                    onLoadComplete(param, isLoadInitial, callback)
-                    setLoadingState(isLoadInitial, false)
+                    onLoadFailed(error, param, isLoadInitial, callback)
                 }
             }
         }
