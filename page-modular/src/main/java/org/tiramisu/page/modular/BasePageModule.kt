@@ -16,6 +16,4 @@ abstract class BasePageModule : IPageModule {
     }
 
     protected inline fun <reified T> manager(): T? = manager as? T
-
-    protected fun getPageId() = manager<IPageInfo>()?.getPageId() ?: ""
 }

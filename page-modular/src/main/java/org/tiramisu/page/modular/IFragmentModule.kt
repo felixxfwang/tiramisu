@@ -9,23 +9,19 @@ import android.view.View
  */
 interface IFragmentModule : IPageModule {
 
-    /**
-     * 对应fragment的onCreateView
-     */
-    fun onCreateView(view: View?) {}
+    fun onFragmentCreated() {}
 
-    /**
-     * 对应的onPageViewRefresh
-     */
+    fun onViewCreated(view: View) {}
+
     fun onViewRefresh() {}
 
-    /**
-     * 可见性变化
-     */
+    fun onFragmentShow() {}
+
+    fun onFragmentHide() {}
+
     fun onHiddenChanged(hidden: Boolean) {}
 
-    /**
-     * 对应fragment的onDestroyView
-     */
-    fun onPageDestroyView() {}
+    fun onViewDestroyed() {}
+
+    fun onFragmentDestroyed() {}
 }
