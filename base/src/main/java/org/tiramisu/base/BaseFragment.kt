@@ -1,7 +1,7 @@
 package org.tiramisu.base
 
 import androidx.fragment.app.Fragment
-import org.tiramisu.page.modular.IFragmentModularPage
+import org.tiramisu.page.modular.fragment.IFragmentModularPage
 
 abstract class BaseFragment : Fragment(), IFragmentModularPage {
 

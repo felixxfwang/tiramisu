@@ -1,7 +1,8 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.activity
 
 import android.content.Intent
 import android.os.Bundle
+import org.tiramisu.page.modular.IPageModule
 
 interface IActivityModule : IPageModule {
 

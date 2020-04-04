@@ -1,4 +1,4 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.fragment
 
 import android.content.Context
 import android.os.Bundle

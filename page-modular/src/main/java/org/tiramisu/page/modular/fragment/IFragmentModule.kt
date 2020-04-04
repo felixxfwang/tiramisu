@@ -1,6 +1,7 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.fragment
 
 import android.view.View
+import org.tiramisu.page.modular.IPageModule
 
 /**
  *

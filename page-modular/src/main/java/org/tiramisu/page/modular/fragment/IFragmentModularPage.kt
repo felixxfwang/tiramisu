@@ -1,4 +1,4 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.fragment
 
 import org.tiramisu.page.modular.visibility.VisibilityChangedListener
 import java.util.*

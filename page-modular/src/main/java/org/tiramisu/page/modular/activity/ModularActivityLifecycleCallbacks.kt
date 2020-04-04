@@ -1,9 +1,10 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.activity
 
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import org.tiramisu.page.modular.fragment.ModularFragmentLifecycleCallback
 
 object ModularActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
 

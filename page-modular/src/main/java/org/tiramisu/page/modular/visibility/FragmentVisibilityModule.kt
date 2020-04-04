@@ -1,6 +1,6 @@
 package org.tiramisu.page.modular.visibility
 
-import org.tiramisu.page.modular.IFragmentModule
+import org.tiramisu.page.modular.fragment.IFragmentModule
 
 class FragmentVisibilityModule : IFragmentModule {
 

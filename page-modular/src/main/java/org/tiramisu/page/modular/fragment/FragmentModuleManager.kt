@@ -1,10 +1,13 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.fragment
 
 import android.view.View
+import org.tiramisu.page.modular.AbstractModuleManager
+import org.tiramisu.page.modular.IPageModule
 import org.tiramisu.page.modular.visibility.FragmentVisibilityModule
 import org.tiramisu.page.modular.visibility.VisibilityChangedListener
 
-open class FragmentModuleManager : AbstractModuleManager(), IFragmentModule, VisibilityChangedListener {
+open class FragmentModuleManager : AbstractModuleManager(),
+    IFragmentModule, VisibilityChangedListener {
 
     protected val modules by lazy {
         ArrayList<IFragmentModule>().also { addModule(visibilityModule) }

@@ -1,9 +1,12 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.activity
 
 import android.content.Intent
 import android.os.Bundle
+import org.tiramisu.page.modular.AbstractModuleManager
+import org.tiramisu.page.modular.IPageModule
 
-open class ActivityModuleManager : AbstractModuleManager(), IActivityModule {
+open class ActivityModuleManager : AbstractModuleManager(),
+    IActivityModule {
 
     protected val modules by lazy { ArrayList<IActivityModule>() }
 

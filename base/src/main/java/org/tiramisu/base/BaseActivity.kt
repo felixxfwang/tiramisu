@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import org.tiramisu.page.modular.IActivityModularPage
+import org.tiramisu.page.modular.activity.IActivityModularPage
 
 abstract class BaseActivity: AppCompatActivity(), IActivityModularPage {
 

@@ -1,4 +1,4 @@
-package org.tiramisu.page.modular;
+package org.tiramisu.page.modular.fragment;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-public @interface ActivityModular {
+public @interface FragmentModular {
     String packageName() default "";
     String className() default "";
 }

@@ -1,4 +1,4 @@
-package org.tiramisu.page.modular
+package org.tiramisu.page.modular.activity
 
 import java.util.*
 
