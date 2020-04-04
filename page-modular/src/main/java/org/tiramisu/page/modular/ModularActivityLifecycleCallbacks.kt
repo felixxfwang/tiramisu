@@ -13,30 +13,30 @@ object ModularActivityLifecycleCallbacks : Application.ActivityLifecycleCallback
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        (activity as? IActivityModularPage<*>)?.modular?.onCreate(savedInstanceState)
+        (activity as? IActivityModularPage)?.modular?.onCreate(savedInstanceState)
     }
 
     override fun onActivityStarted(activity: Activity) {
-        (activity as? IActivityModularPage<*>)?.modular?.onStart()
+        (activity as? IActivityModularPage)?.modular?.onStart()
     }
 
     override fun onActivityResumed(activity: Activity) {
-        (activity as? IActivityModularPage<*>)?.modular?.onResume()
+        (activity as? IActivityModularPage)?.modular?.onResume()
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
     }
 
     override fun onActivityPaused(activity: Activity) {
-        (activity as? IActivityModularPage<*>)?.modular?.onPause()
+        (activity as? IActivityModularPage)?.modular?.onPause()
     }
 
     override fun onActivityStopped(activity: Activity) {
-        (activity as? IActivityModularPage<*>)?.modular?.onStop()
+        (activity as? IActivityModularPage)?.modular?.onStop()
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        (activity as? IActivityModularPage<*>)?.modular?.onDestroy()
+        (activity as? IActivityModularPage)?.modular?.onDestroy()
     }
 
     override fun onActivityPostDestroyed(activity: Activity) {

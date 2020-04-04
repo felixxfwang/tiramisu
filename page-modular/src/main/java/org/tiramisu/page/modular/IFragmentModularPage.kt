@@ -2,21 +2,15 @@ package org.tiramisu.page.modular
 
 import java.util.*
 
-typealias FragmentModularPage = IFragmentModularPage<FragmentModuleManager>
-
-interface IFragmentModularPage<M: FragmentModuleManager> {
+interface IFragmentModularPage {
     companion object {
-        internal val modulesMap = IdentityHashMap<IFragmentModularPage<*>, IPageModuleManager>()
+        internal val modulesMap = IdentityHashMap<IFragmentModularPage, FragmentModuleManager>()
     }
 
-    @Suppress("UNCHECKED_CAST")
-    val modular: M
-        get() {
-            if (modulesMap[this] == null) {
-                modulesMap[this] = buildModuleManager()
-            }
-            return modulesMap as M
+    val modular: FragmentModuleManager
+        get() = modulesMap[this] ?: run {
+            (getModuleManager() ?: FragmentModuleManager()).also { modulesMap[this] = it }
         }
 
-    fun buildModuleManager(): M
+    fun getModuleManager(): FragmentModuleManager? = null
 }

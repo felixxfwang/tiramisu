@@ -19,7 +19,13 @@ interface IFragmentModule : IPageModule {
 
     fun onFragmentHide() {}
 
+    fun onFragmentResume() {}
+
+    fun onFragmentPause() {}
+
     fun onHiddenChanged(hidden: Boolean) {}
+
+    fun onSetUserVisibleHint(visible: Boolean) {}
 
     fun onViewDestroyed() {}
 

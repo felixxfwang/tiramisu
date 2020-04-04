@@ -7,5 +7,4 @@ object PageModular {
     fun initialize(application: Application) {
         application.registerActivityLifecycleCallbacks(ModularActivityLifecycleCallbacks)
     }
-
 }

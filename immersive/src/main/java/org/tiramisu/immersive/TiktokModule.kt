@@ -8,6 +8,7 @@ import org.tiramisu.http.TiramisuHttp
 import org.tiramisu.log.TLog
 import org.tiramisu.modular.BaseModule
 import org.tiramisu.modular.IModule
+import org.tiramisu.page.modular.PageModular
 
 @AutoService(IModule::class)
 class TiktokModule: BaseModule() {
@@ -26,6 +27,8 @@ class TiktokModule: BaseModule() {
         TiramisuHttp.initialize(application, AppSettings.isDebugVersion)
 
         ViewHolderRegister.registerExtraCreator(TiktokViewHolderCreator())
+
+        PageModular.initialize(application)
     }
 
     override fun unload() {

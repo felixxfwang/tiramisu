@@ -37,8 +37,20 @@ open class FragmentModuleManager : AbstractModuleManager(), IFragmentModule {
         modules.forEach { it.onFragmentHide() }
     }
 
+    override fun onFragmentResume() {
+        modules.forEach { it.onFragmentResume() }
+    }
+
+    override fun onFragmentPause() {
+        modules.forEach { it.onFragmentPause() }
+    }
+
     override fun onHiddenChanged(hidden: Boolean) {
         modules.forEach { it.onHiddenChanged(hidden) }
+    }
+
+    override fun onSetUserVisibleHint(visible: Boolean) {
+        modules.forEach { it.onSetUserVisibleHint(visible) }
     }
 
     override fun onViewDestroyed() {
