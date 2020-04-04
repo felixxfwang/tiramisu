@@ -1,4 +1,4 @@
-package org.tiramisu.feeds.adapter.plugin
+package org.tiramisu.feeds.adapter.decorator
 
 import org.tiramisu.feeds.adapter.BaseAdapter
 import org.tiramisu.feeds.data.BaseAdapterData

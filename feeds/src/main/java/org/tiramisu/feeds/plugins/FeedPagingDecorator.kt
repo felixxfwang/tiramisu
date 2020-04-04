@@ -3,7 +3,7 @@ package org.tiramisu.feeds.plugins
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import org.tiramisu.feeds.adapter.plugin.AdapterLifecycleDecorator
+import org.tiramisu.feeds.adapter.decorator.AdapterLifecycleDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 import org.tiramisu.feeds.repository.LoadMoreCallback
 import org.tiramisu.feeds.repository.PagingDataRepository

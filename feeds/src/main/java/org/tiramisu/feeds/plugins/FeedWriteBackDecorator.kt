@@ -1,7 +1,7 @@
 package org.tiramisu.feeds.plugins
 
 import org.tiramisu.feeds.adapter.BaseAdapter
-import org.tiramisu.feeds.adapter.plugin.AdapterWriteBackDecorator
+import org.tiramisu.feeds.adapter.decorator.AdapterWriteBackDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 import org.tiramisu.feeds.data.WriteBackData
 

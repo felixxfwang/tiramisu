@@ -1,4 +1,4 @@
-package org.tiramisu.feeds.adapter.plugin
+package org.tiramisu.feeds.adapter.decorator
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

@@ -1,6 +1,6 @@
 package org.tiramisu.feeds.adapter
 
-import org.tiramisu.feeds.adapter.plugin.BaseAdapterDecorator
+import org.tiramisu.feeds.adapter.decorator.BaseAdapterDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 
 /**
