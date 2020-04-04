@@ -18,14 +18,14 @@ object ModularFragmentLifecycleCallback : FragmentManager.FragmentLifecycleCallb
     }
 
     override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        (f as? FragmentModularPage<*>)?.modular?.onFragmentCreated()
+        (f as? IFragmentModularPage<*>)?.modular?.onFragmentCreated()
     }
 
     override fun onFragmentActivityCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
     }
 
     override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
-        (f as? FragmentModularPage<*>)?.modular?.onViewCreated(v)
+        (f as? IFragmentModularPage<*>)?.modular?.onViewCreated(v)
     }
 
     override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
@@ -44,13 +44,13 @@ object ModularFragmentLifecycleCallback : FragmentManager.FragmentLifecycleCallb
     }
 
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
-        (f as? FragmentModularPage<*>)?.modular?.onViewDestroyed()
+        (f as? IFragmentModularPage<*>)?.modular?.onViewDestroyed()
     }
 
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {
-        (f as? FragmentModularPage<*>)?.let {
+        (f as? IFragmentModularPage<*>)?.let {
             it.modular.onFragmentDestroyed()
-            FragmentModularPage.modulesMap.remove(it)?.clear()
+            IFragmentModularPage.modulesMap.remove(it)?.clear()
         }
     }
 

@@ -1,19 +1,22 @@
 package org.tiramisu.page.modular
 
+import kotlin.properties.Delegates
+
 /**
  *
  * @author felixxfwang
  * @date   2019-12-11
  */
 abstract class BasePageModule : IPageModule {
-    protected var manager: IPageModuleManager? = null
+
+    protected var eventBus: Any by Delegates.notNull()
 
     /**
      * 设置当前module所属的manager
      */
-    fun setModuleManager(manager: IPageModuleManager) {
-        this.manager = manager
+    internal fun setModuleManager(manager: IPageModuleManager) {
+        this.eventBus = manager
     }
 
-    protected inline fun <reified T> manager(): T? = manager as? T
+    protected inline fun <reified T> getBus(): T = eventBus as T
 }

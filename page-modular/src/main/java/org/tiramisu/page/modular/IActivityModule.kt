@@ -13,6 +13,8 @@ interface IActivityModule : IPageModule {
 
     fun onPause() {}
 
+    fun onStop() {}
+
     fun onDestroy() {}
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
