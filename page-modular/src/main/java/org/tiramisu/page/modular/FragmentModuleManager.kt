@@ -1,10 +1,35 @@
 package org.tiramisu.page.modular
 
 import android.view.View
+import org.tiramisu.page.modular.visibility.FragmentVisibilityModule
+import org.tiramisu.page.modular.visibility.VisibilityChangedListener
 
-open class FragmentModuleManager : AbstractModuleManager(), IFragmentModule {
+open class FragmentModuleManager : AbstractModuleManager(), IFragmentModule, VisibilityChangedListener {
 
-    protected val modules by lazy { ArrayList<IFragmentModule>() }
+    protected val modules by lazy {
+        ArrayList<IFragmentModule>().also { addModule(visibilityModule) }
+    }
+
+    private var visibilityChangedListener: VisibilityChangedListener? = null
+
+    private val visibilityModule by lazy {
+        FragmentVisibilityModule().also { it.setVisibilityChangedListener(this) }
+    }
+
+    fun setVisibilityChangedListener(listener: VisibilityChangedListener) {
+        this.visibilityChangedListener = listener
+    }
+
+    fun isFragmentVisible(): Boolean = visibilityModule.isFragmentVisible()
+
+    override fun onVisibilityChanged(isVisible: Boolean) {
+        visibilityChangedListener?.onVisibilityChanged(isVisible)
+        if (isVisible) {
+            modules.forEach { it.onFragmentShow() }
+        } else {
+            modules.forEach { it.onFragmentHide() }
+        }
+    }
 
     override fun addModule(module: IPageModule) {
         super.addModule(module)

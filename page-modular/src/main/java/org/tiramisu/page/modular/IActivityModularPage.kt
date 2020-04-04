@@ -9,8 +9,8 @@ interface IActivityModularPage {
 
     val modular: ActivityModuleManager
         get() = modulesMap[this] ?: run {
-            (getModularManager() ?: ActivityModuleManager()).also { modulesMap[this] = it }
+            (onCreateModuleManager() ?: ActivityModuleManager()).also { modulesMap[this] = it }
         }
 
-    fun getModularManager(): ActivityModuleManager? = null
+    fun onCreateModuleManager(): ActivityModuleManager? = null
 }

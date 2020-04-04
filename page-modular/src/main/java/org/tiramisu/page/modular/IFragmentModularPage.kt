@@ -1,16 +1,22 @@
 package org.tiramisu.page.modular
 
+import org.tiramisu.page.modular.visibility.VisibilityChangedListener
 import java.util.*
 
-interface IFragmentModularPage {
+interface IFragmentModularPage : VisibilityChangedListener {
     companion object {
         internal val modulesMap = IdentityHashMap<IFragmentModularPage, FragmentModuleManager>()
     }
 
     val modular: FragmentModuleManager
         get() = modulesMap[this] ?: run {
-            (getModuleManager() ?: FragmentModuleManager()).also { modulesMap[this] = it }
+            (onCreateModuleManager() ?: FragmentModuleManager()).also {
+                modulesMap[this] = it
+                it.setVisibilityChangedListener(this)
+            }
         }
 
-    fun getModuleManager(): FragmentModuleManager? = null
+    fun onCreateModuleManager(): FragmentModuleManager? = null
+
+    fun isFragmentVisible(): Boolean = modular.isFragmentVisible()
 }
