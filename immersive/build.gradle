@@ -21,6 +21,8 @@ dependencies {
     implementation project(':modular')
     implementation project(':biz-base')
     implementation project(':page-modular')
+    implementation project(':page-modular-annotations')
+    kapt project(':page-modular-processor')
 
     implementation project(':feeds')
     implementation project(':repository')
