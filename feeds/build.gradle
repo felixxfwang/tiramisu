@@ -16,4 +16,5 @@ dependencies {
 
     implementation project(':repository')
     implementation project(':log')
+    implementation project(':page-modular')
 }

@@ -1,6 +1,7 @@
 package org.tiramisu.page.modular.fragment
 
 import android.view.View
+import androidx.fragment.app.Fragment
 import org.tiramisu.page.modular.AbstractModuleManager
 import org.tiramisu.page.modular.IPageModule
 import org.tiramisu.page.modular.visibility.FragmentVisibilityModule
@@ -9,7 +10,7 @@ import org.tiramisu.page.modular.visibility.VisibilityChangedListener
 open class FragmentModuleManager : AbstractModuleManager(),
     IFragmentModule, VisibilityChangedListener {
 
-    protected val modules by lazy {
+    val modules by lazy {
         ArrayList<IFragmentModule>().also { addModule(visibilityModule) }
     }
 
@@ -45,16 +46,33 @@ open class FragmentModuleManager : AbstractModuleManager(),
         modules.clear()
     }
 
+    inline fun <reified T: IFragmentModule> getModule(): T? {
+        return modules.firstOrNull { it is T } as? T
+    }
+
     override fun onFragmentCreated() {
         modules.forEach { it.onFragmentCreated() }
     }
 
-    override fun onViewCreated(view: View) {
-        modules.forEach { it.onViewCreated(view) }
+    override fun onFragmentViewPreCreate(fragment: Fragment): View? {
+        var intercepted: View? = null
+        modules.forEach {
+            val view = it.onFragmentViewPreCreate(fragment)
+            if (view != null) intercepted = view
+        }
+        return intercepted
     }
 
-    override fun onViewRefresh() {
-        modules.forEach { it.onViewRefresh() }
+    override fun onFragmentViewCreated(fragment: Fragment, view: View) {
+        modules.forEach { it.onFragmentViewCreated(fragment, view) }
+    }
+
+    override fun onFragmentViewRefresh() {
+        modules.forEach { it.onFragmentViewRefresh() }
+    }
+
+    override fun onFragmentViewReused() {
+        modules.forEach { it.onFragmentViewReused() }
     }
 
     override fun onFragmentShow() {
@@ -81,8 +99,8 @@ open class FragmentModuleManager : AbstractModuleManager(),
         modules.forEach { it.onSetUserVisibleHint(visible) }
     }
 
-    override fun onViewDestroyed() {
-        modules.forEach { it.onViewDestroyed() }
+    override fun onFragmentViewDestroyed() {
+        modules.forEach { it.onFragmentViewDestroyed() }
     }
 
     override fun onFragmentDestroyed() {

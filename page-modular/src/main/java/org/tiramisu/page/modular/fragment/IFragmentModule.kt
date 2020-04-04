@@ -1,6 +1,7 @@
 package org.tiramisu.page.modular.fragment
 
 import android.view.View
+import androidx.fragment.app.Fragment
 import org.tiramisu.page.modular.IPageModule
 
 /**
@@ -12,9 +13,13 @@ interface IFragmentModule : IPageModule {
 
     fun onFragmentCreated() {}
 
-    fun onViewCreated(view: View) {}
+    fun onFragmentViewPreCreate(fragment: Fragment): View? = null
 
-    fun onViewRefresh() {}
+    fun onFragmentViewCreated(fragment: Fragment, view: View) {}
+
+    fun onFragmentViewReused() {}
+
+    fun onFragmentViewRefresh() {}
 
     fun onFragmentShow() {}
 
@@ -28,7 +33,7 @@ interface IFragmentModule : IPageModule {
 
     fun onSetUserVisibleHint(visible: Boolean) {}
 
-    fun onViewDestroyed() {}
+    fun onFragmentViewDestroyed() {}
 
     fun onFragmentDestroyed() {}
 }

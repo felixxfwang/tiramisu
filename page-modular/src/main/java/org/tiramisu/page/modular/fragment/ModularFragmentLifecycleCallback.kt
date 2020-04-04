@@ -25,7 +25,7 @@ object ModularFragmentLifecycleCallback : FragmentManager.FragmentLifecycleCallb
     }
 
     override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
-        (f as? IFragmentModularPage)?.modular?.onViewCreated(v)
+        (f as? IFragmentModularPage)?.modular?.onFragmentViewCreated(f, v)
     }
 
     override fun onFragmentStarted(fm: FragmentManager, f: Fragment) {
@@ -46,7 +46,7 @@ object ModularFragmentLifecycleCallback : FragmentManager.FragmentLifecycleCallb
     }
 
     override fun onFragmentViewDestroyed(fm: FragmentManager, f: Fragment) {
-        (f as? IFragmentModularPage)?.modular?.onViewDestroyed()
+        (f as? IFragmentModularPage)?.modular?.onFragmentViewDestroyed()
     }
 
     override fun onFragmentDestroyed(fm: FragmentManager, f: Fragment) {

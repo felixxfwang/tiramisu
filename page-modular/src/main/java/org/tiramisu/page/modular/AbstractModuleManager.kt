@@ -11,6 +11,6 @@ abstract class AbstractModuleManager : IPageModuleManager {
 
     @CallSuper
     override fun addModule(module: IPageModule) {
-        (module as? BasePageModule)?.setModuleManager(this)
+        module.setModuleManager(this)
     }
 }
