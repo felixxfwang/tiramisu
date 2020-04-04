@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.biz.base.RT
-import org.tiramisu.feeds.plugins.FeedPagingDecorator
+import org.tiramisu.feeds.decorators.FeedPagingDecorator
 import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.LoadInitialCallback
 import org.tiramisu.feeds.repository.LoadMoreCallback

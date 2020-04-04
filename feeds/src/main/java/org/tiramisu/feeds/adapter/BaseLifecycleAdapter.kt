@@ -11,7 +11,7 @@ import org.tiramisu.feeds.holder.ViewHolderCreator
 import org.tiramisu.feeds.holder.LifecycleViewHolder
 import org.tiramisu.feeds.lifecycle.IListViewLifecycle
 import org.tiramisu.feeds.lifecycle.IListWriteBackHandler
-import org.tiramisu.feeds.plugins.FeedWriteBackDecorator
+import org.tiramisu.feeds.decorators.FeedWriteBackDecorator
 import org.tiramisu.log.TLog
 
 /**
