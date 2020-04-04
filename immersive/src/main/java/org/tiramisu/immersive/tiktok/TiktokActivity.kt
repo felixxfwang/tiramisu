@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import kotlinx.android.synthetic.main.activity_tiktok.*
 import org.tiramisu.base.BaseActivity
 import org.tiramisu.biz.base.RT
-import org.tiramisu.feeds.plugins.FeedPagingPlugin
+import org.tiramisu.feeds.plugins.FeedPagingDecorator
 import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.LoadInitialCallback
 import org.tiramisu.feeds.repository.LoadMoreCallback
@@ -30,7 +30,7 @@ class TiktokActivity : BaseActivity(), OnSnapListener,
 
     private val adapter by lazy {
         TiktokAdapter().apply {
-            addAdapterPlugin(FeedPagingPlugin(repository, req, 5, this@TiktokActivity))
+            addDecorator(FeedPagingDecorator(repository, req, 5, this@TiktokActivity))
         }
     }
     private val layoutManager by lazy {

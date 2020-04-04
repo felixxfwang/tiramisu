@@ -3,7 +3,7 @@ package org.tiramisu.feeds.plugins
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import org.tiramisu.feeds.adapter.plugin.AdapterLifecyclePlugin
+import org.tiramisu.feeds.adapter.plugin.AdapterLifecycleDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 
 /**
@@ -12,7 +12,7 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @author felixxfwang
  * @date   2019-09-16
  */
-class FeedWaterfallPlugin<T : BaseAdapterData>(
+class FeedWaterfallDecorator<T : BaseAdapterData>(
     private val spanCount: Int,
     private val orientation: Int,
 //    horizontalDividerWidth: Int = HORIZONTAL_DIVIDER_WIDTH,
@@ -21,7 +21,7 @@ class FeedWaterfallPlugin<T : BaseAdapterData>(
 //    verticalEdgeWidth: Int = EPOCH_VERTICAL_DIVIDER,
     dividerColor: Int = Color.WHITE,
     excludeLast: Boolean = false
-) : AdapterLifecyclePlugin<T> {
+) : AdapterLifecycleDecorator<T> {
 
     companion object {
 //        val HORIZONTAL_EDGE_WIDTH = dip(12F)

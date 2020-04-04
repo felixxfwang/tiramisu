@@ -7,8 +7,7 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @author felixxfwang
  * @date   2019-10-12
  */
-@SuppressWarnings("EmptyFunctionBlock")
-interface AdapterDataPlugin<T : BaseAdapterData> : BaseAdapterPlugin<T> {
+interface AdapterDataDecorator<T : BaseAdapterData> : BaseAdapterDecorator<T> {
 
     /**
      * 设置数据之前执行

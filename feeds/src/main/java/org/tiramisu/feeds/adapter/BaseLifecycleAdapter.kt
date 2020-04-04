@@ -11,7 +11,7 @@ import org.tiramisu.feeds.holder.ViewHolderCreator
 import org.tiramisu.feeds.holder.LifecycleViewHolder
 import org.tiramisu.feeds.lifecycle.IListViewLifecycle
 import org.tiramisu.feeds.lifecycle.IListWriteBackHandler
-import org.tiramisu.feeds.plugins.FeedWriteBackPlugin
+import org.tiramisu.feeds.plugins.FeedWriteBackDecorator
 import org.tiramisu.log.TLog
 
 /**
@@ -32,7 +32,7 @@ open class BaseLifecycleAdapter<T : BaseAdapterData, VH: AbstractViewHolder>
     private var channelPage: IChannelModel? = null
 
     init {
-        addAdapterPlugin(FeedWriteBackPlugin())
+        addDecorator(FeedWriteBackDecorator())
     }
 
     override fun bindChannelData(channelPage: IChannelModel) {

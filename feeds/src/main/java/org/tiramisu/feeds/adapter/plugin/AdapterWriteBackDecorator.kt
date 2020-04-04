@@ -10,7 +10,7 @@ import org.tiramisu.feeds.data.WriteBackData
  * @date   2019-10-12
  */
 @SuppressWarnings("EmptyFunctionBlock")
-interface AdapterWriteBackPlugin<T : BaseAdapterData> : BaseAdapterPlugin<T> {
+interface AdapterWriteBackDecorator<T : BaseAdapterData> : BaseAdapterDecorator<T> {
     /**
      * 数据刷新事件
      */

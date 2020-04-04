@@ -7,7 +7,7 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @author felixxfwang
  * @date   2019-10-11
  */
-interface IAdapter<T: BaseAdapterData> : IPluggableAdapter<T>, ILifecycleAdapter, IRecycleViewAdapter<T> {
+interface IAdapter<T: BaseAdapterData> : IDecoratorAdapter<T>, ILifecycleAdapter, IRecycleViewAdapter<T> {
 
     /**
      * 设置Adapter数据

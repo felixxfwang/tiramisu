@@ -1,8 +1,8 @@
 package org.tiramisu.feeds.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import org.tiramisu.feeds.adapter.plugin.BaseAdapterPlugin
-import org.tiramisu.feeds.adapter.plugin.CompositeAdapterPlugin
+import org.tiramisu.feeds.adapter.plugin.BaseAdapterDecorator
+import org.tiramisu.feeds.adapter.plugin.CompositeAdapterDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 
 /**
@@ -18,7 +18,7 @@ abstract class BaseAdapter<T : BaseAdapterData, VH : RecyclerView.ViewHolder> : 
 
     private val mData = ArrayList<T>()
 
-    protected val plugins = CompositeAdapterPlugin<T>()
+    protected val plugins = CompositeAdapterDecorator<T>()
 
     override fun getItem(position: Int): T = mData[position]
 
@@ -29,12 +29,12 @@ abstract class BaseAdapter<T : BaseAdapterData, VH : RecyclerView.ViewHolder> : 
     /**
      * 添加插件
      */
-    final override fun addAdapterPlugin(plugin: BaseAdapterPlugin<T>) {
-        plugins.addPlugin(plugin)
+    final override fun addDecorator(decorator: BaseAdapterDecorator<T>) {
+        plugins.addPlugin(decorator)
     }
 
-    final override fun removeAdapterPlugin(plugin: BaseAdapterPlugin<T>) {
-        plugins.removePlugin(plugin)
+    final override fun removeDecorator(decorator: BaseAdapterDecorator<T>) {
+        plugins.removePlugin(decorator)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

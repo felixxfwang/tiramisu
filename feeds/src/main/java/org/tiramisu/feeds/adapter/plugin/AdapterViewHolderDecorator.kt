@@ -10,7 +10,7 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @date   2019-10-12
  */
 @SuppressWarnings("EmptyFunctionBlock")
-interface AdapterViewHolderPlugin<T : BaseAdapterData> : BaseAdapterPlugin<T> {
+interface AdapterViewHolderDecorator<T : BaseAdapterData> : BaseAdapterDecorator<T> {
 
     /**
      * 创建ViewHolder之前

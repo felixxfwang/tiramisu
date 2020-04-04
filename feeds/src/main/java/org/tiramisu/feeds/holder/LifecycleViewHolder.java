@@ -63,12 +63,7 @@ public class LifecycleViewHolder extends AbstractViewHolder
     @CallSuper
     @Override
     public void onExposure(final RecyclerView list, final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onExposure(list, viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onExposure(list, viewHolder));
     }
 
     /**
@@ -84,161 +79,88 @@ public class LifecycleViewHolder extends AbstractViewHolder
      */
     protected void bindViewClick(final View view, boolean force) {
         if (force || !view.hasOnClickListeners()) {
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onViewClick(view, LifecycleViewHolder.this);
-                }
-            });
+            view.setOnClickListener(v -> onViewClick(view, LifecycleViewHolder.this));
         }
     }
 
     protected void bindViewLongClick(final View view) {
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                onViewLongClick(view, LifecycleViewHolder.this);
-                return true;
-            }
+        view.setOnLongClickListener(v -> {
+            onViewLongClick(view, LifecycleViewHolder.this);
+            return true;
         });
     }
 
     @Override
     public void onItemViewClick(final View view, final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onItemViewClick(view, viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onItemViewClick(view, viewHolder));
     }
 
     @Override
     public void onItemViewLongClick(final View view, final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onItemViewLongClick(view, viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onItemViewLongClick(view, viewHolder));
     }
 
     @CallSuper
     @Override
     public void onViewClick(final View view, final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onViewClick(view, viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onViewClick(view, viewHolder));
     }
 
     @Override
     public void onViewLongClick(final View view, final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onViewLongClick(view, viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onViewLongClick(view, viewHolder));
     }
 
     @Override
     public void onListRefresh(final RecyclerView list, final String channel) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListRefresh(list, channel);
-            }
-        });
+        dispatch(behavior -> behavior.onListRefresh(list, channel));
     }
 
     @CallSuper
     @Override
     public void onListShow(final RecyclerView list, final String channel) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListShow(list, channel);
-            }
-        });
+        dispatch(behavior -> behavior.onListShow(list, channel));
     }
 
     @CallSuper
     @Override
     public void onListHide(final RecyclerView list, final String channel) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListHide(list, channel);
-            }
-        });
+        dispatch(behavior -> behavior.onListHide(list, channel));
     }
 
     @Override
     public void onListDestroy(final RecyclerView list, final String channel) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListDestroy(list, channel);
-            }
-        });
+        dispatch(behavior -> behavior.onListDestroy(list, channel));
     }
 
     @CallSuper
     @Override
     public void onListScrolled(final RecyclerView list, final String channel, final int dx, final int dy) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListScrolled(list, channel, dx, dy);
-            }
-        });
+        dispatch(behavior -> behavior.onListScrolled(list, channel, dx, dy));
     }
 
     @CallSuper
     @Override
     public void onListScrollStateChanged(final RecyclerView list, final String channel, final int newState) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListScrollStateChanged(list, channel, newState);
-            }
-        });
+        dispatch(behavior -> behavior.onListScrollStateChanged(list, channel, newState));
     }
 
     @CallSuper
     @Override
     public void onListScrollStateIdle(final RecyclerView list, final String channel) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onListScrollStateIdle(list, channel);
-            }
-        });
+        dispatch(behavior -> behavior.onListScrollStateIdle(list, channel));
     }
 
     @CallSuper
     @Override
     public void onAttachedToWindow(final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onAttachedToWindow(viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onAttachedToWindow(viewHolder));
     }
 
     @CallSuper
     @Override
     public void onDetachedFromWindow(final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onDetachedFromWindow(viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onDetachedFromWindow(viewHolder));
     }
 
     /**
@@ -246,44 +168,24 @@ public class LifecycleViewHolder extends AbstractViewHolder
      */
     @Override
     public void onScrollDetachedFromWindow(final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onScrollDetachedFromWindow(viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onScrollDetachedFromWindow(viewHolder));
     }
 
     @CallSuper
     @Override
     public void onFullIdleInScreen(final RecyclerView.ViewHolder viewHolder, final String channel, final int top, final int bottom, final int containerTop, final int containerBottom) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onFullIdleInScreen(viewHolder, channel, top, bottom, containerTop, containerBottom);
-            }
-        });
+        dispatch(behavior -> behavior.onFullIdleInScreen(viewHolder, channel, top, bottom, containerTop, containerBottom));
     }
 
     @CallSuper
     @Override
     public void onBottomIdleInScreen(final RecyclerView.ViewHolder viewHolder, final String channel, final int top, final int bottom, final int containerTop, final int containerBottom) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onBottomIdleInScreen(viewHolder, channel, top, bottom, containerTop, containerBottom);
-            }
-        });
+        dispatch(behavior -> behavior.onBottomIdleInScreen(viewHolder, channel, top, bottom, containerTop, containerBottom));
     }
 
     @Override
     public void onDismiss(final RecyclerView.ViewHolder viewHolder) {
-        dispatch(new Action1<IListLifecycleBehavior>() {
-            @Override
-            public void call(IListLifecycleBehavior behavior) {
-                behavior.onDismiss(viewHolder);
-            }
-        });
+        dispatch(behavior -> behavior.onDismiss(viewHolder));
     }
 
     @Override

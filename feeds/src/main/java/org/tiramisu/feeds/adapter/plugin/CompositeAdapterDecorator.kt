@@ -12,52 +12,52 @@ import org.tiramisu.feeds.data.WriteBackData
  * @author felixxfwang
  * @date   2019-09-25
  */
-class CompositeAdapterPlugin<T : BaseAdapterData> : AdapterPlugin<T> {
+class CompositeAdapterDecorator<T : BaseAdapterData> : AdapterDecorator<T> {
 
-    private val dataPlugins = ArrayList<AdapterDataPlugin<T>>()
-    private val lifecyclePlugins = ArrayList<AdapterLifecyclePlugin<T>>()
-    private val writeBackPlugins = ArrayList<AdapterWriteBackPlugin<T>>()
-    private val viewHolderPlugins = ArrayList<AdapterViewHolderPlugin<T>>()
+    private val dataPlugins = ArrayList<AdapterDataDecorator<T>>()
+    private val lifecyclePlugins = ArrayList<AdapterLifecycleDecorator<T>>()
+    private val writeBackPlugins = ArrayList<AdapterWriteBackDecorator<T>>()
+    private val viewHolderPlugins = ArrayList<AdapterViewHolderDecorator<T>>()
 
     /**
      * 添加插件
      */
-    fun addPlugin(plugin: BaseAdapterPlugin<T>) {
-        if (plugin is AdapterDataPlugin && canAddPlugin(dataPlugins, plugin)) {
-            dataPlugins.add(plugin)
+    fun addPlugin(decorator: BaseAdapterDecorator<T>) {
+        if (decorator is AdapterDataDecorator && canAddPlugin(dataPlugins, decorator)) {
+            dataPlugins.add(decorator)
         }
-        if (plugin is AdapterLifecyclePlugin && canAddPlugin(lifecyclePlugins, plugin)) {
-            lifecyclePlugins.add(plugin)
+        if (decorator is AdapterLifecycleDecorator && canAddPlugin(lifecyclePlugins, decorator)) {
+            lifecyclePlugins.add(decorator)
         }
-        if (plugin is AdapterWriteBackPlugin && canAddPlugin(writeBackPlugins, plugin)) {
-            writeBackPlugins.add(plugin)
+        if (decorator is AdapterWriteBackDecorator && canAddPlugin(writeBackPlugins, decorator)) {
+            writeBackPlugins.add(decorator)
         }
-        if (plugin is AdapterViewHolderPlugin && canAddPlugin(viewHolderPlugins, plugin)) {
-            viewHolderPlugins.add(plugin)
+        if (decorator is AdapterViewHolderDecorator && canAddPlugin(viewHolderPlugins, decorator)) {
+            viewHolderPlugins.add(decorator)
         }
     }
 
     /**
      * 删除插件
      */
-    fun removePlugin(plugin: BaseAdapterPlugin<T>) {
-        if (plugin is AdapterDataPlugin) {
-            dataPlugins.remove(plugin)
+    fun removePlugin(decorator: BaseAdapterDecorator<T>) {
+        if (decorator is AdapterDataDecorator) {
+            dataPlugins.remove(decorator)
         }
-        if (plugin is AdapterLifecyclePlugin) {
-            lifecyclePlugins.remove(plugin)
+        if (decorator is AdapterLifecycleDecorator) {
+            lifecyclePlugins.remove(decorator)
         }
-        if (plugin is AdapterWriteBackPlugin) {
-            writeBackPlugins.remove(plugin)
+        if (decorator is AdapterWriteBackDecorator) {
+            writeBackPlugins.remove(decorator)
         }
-        if (plugin is AdapterViewHolderPlugin) {
-            viewHolderPlugins.remove(plugin)
+        if (decorator is AdapterViewHolderDecorator) {
+            viewHolderPlugins.remove(decorator)
         }
     }
 
-    private fun canAddPlugin(plugins: List<BaseAdapterPlugin<T>>, plugin: BaseAdapterPlugin<T>): Boolean {
+    private fun canAddPlugin(decorators: List<BaseAdapterDecorator<T>>, decorator: BaseAdapterDecorator<T>): Boolean {
         // 同一类型的插件只允许添加一个
-        return !plugins.contains(plugin) && plugins.none { it.javaClass == plugin.javaClass }
+        return !decorators.contains(decorator) && decorators.none { it.javaClass == decorator.javaClass }
     }
 
     /**

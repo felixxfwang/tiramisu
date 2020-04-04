@@ -3,7 +3,7 @@ package org.tiramisu.feeds.plugins
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import org.tiramisu.feeds.adapter.plugin.AdapterLifecyclePlugin
+import org.tiramisu.feeds.adapter.plugin.AdapterLifecycleDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 import org.tiramisu.feeds.repository.LoadMoreCallback
 import org.tiramisu.feeds.repository.PagingDataRepository
@@ -15,10 +15,10 @@ import org.tiramisu.log.TLog
  * @author felixxfwang
  * @date   2019-09-16
  */
-class FeedPagingPlugin<T : BaseAdapterData, P, D>(
+class FeedPagingDecorator<T : BaseAdapterData, P, D>(
     private var preloadDistance: Int = 10,
     private var loadCallback: LoadMoreCallback<P, D>
-) : AdapterLifecyclePlugin<T> {
+) : AdapterLifecycleDecorator<T> {
 
     companion object {
         private const val TAG = "PagingScrollListener"

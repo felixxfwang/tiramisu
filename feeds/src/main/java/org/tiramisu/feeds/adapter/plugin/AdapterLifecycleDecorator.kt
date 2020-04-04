@@ -8,8 +8,7 @@ import org.tiramisu.feeds.data.BaseAdapterData
  * @author felixxfwang
  * @date   2019-10-12
  */
-@SuppressWarnings("EmptyFunctionBlock")
-interface AdapterLifecyclePlugin<T : BaseAdapterData> : BaseAdapterPlugin<T> {
+interface AdapterLifecycleDecorator<T : BaseAdapterData> : BaseAdapterDecorator<T> {
 
     /**
      * 数据项划出屏幕
