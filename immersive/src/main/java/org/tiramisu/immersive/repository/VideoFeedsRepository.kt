@@ -1,6 +1,7 @@
 package org.tiramisu.immersive.repository
 
 import kotlinx.coroutines.CoroutineScope
+import org.tiramisu.biz.base.BASE_HTTP_URL
 import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.FeedsCoroutineRepository
 import org.tiramisu.immersive.data.VideoData

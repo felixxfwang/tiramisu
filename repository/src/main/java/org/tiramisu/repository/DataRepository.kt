@@ -6,13 +6,16 @@ package org.tiramisu.repository
  * @date   2019-09-09
  */
 interface DataRepository<P, D> {
-    fun loadData(param: P) = loadData(param, null)
     /**
      * 加载数据
      */
     fun loadData(param: P, callback: LoadDataCallback<P, D>?)
     fun isLoading(): Boolean
     fun cancel()
+}
+
+interface CoroutineDataRepository<P, D> {
+    suspend fun loadData(param: P): DataResult<D>
 }
 
 /**

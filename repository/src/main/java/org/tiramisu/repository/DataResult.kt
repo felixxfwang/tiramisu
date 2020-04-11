@@ -2,7 +2,7 @@ package org.tiramisu.repository
 
 typealias DataResult<V> = Result<V, DataException>
 
-sealed class Result<out V : Any, out E : Exception> {
+sealed class Result<out V, out E : Exception> {
 
     open operator fun component1(): V? = null
     open operator fun component2(): E? = null
@@ -16,7 +16,7 @@ sealed class Result<out V : Any, out E : Exception> {
 
     abstract fun isSuccess(): Boolean
 
-    class Success<out V : Any>(val value: V) : Result<V, Nothing>() {
+    class Success<out V>(val value: V) : Result<V, Nothing>() {
         override fun component1(): V? = value
 
         override fun get(): V = value
@@ -56,12 +56,12 @@ sealed class Result<out V : Any, out E : Exception> {
         // Factory methods
         fun <E : Exception> error(ex: E) = Failure(ex)
 
-        fun <V : Any> success(v: V) = Success(v)
+        fun <V> success(v: V) = Success(v)
 
-        fun <V : Any, E : Exception> of(value: V?, fail: (() -> E)): Result<V, E> =
+        fun <V, E : Exception> of(value: V?, fail: (() -> E)): Result<V, E> =
             value?.let { success(it) } ?: error(fail())
 
-        fun <V : Any, E: Exception> of(f: () -> V): Result<V, E> = try {
+        fun <V, E: Exception> of(f: () -> V): Result<V, E> = try {
             success(f())
         } catch (ex: Exception) {
             error(ex as E)
