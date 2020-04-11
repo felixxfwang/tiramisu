@@ -1,7 +1,7 @@
 package org.tiramisu.immersive.tiktok
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import kotlinx.android.synthetic.main.activity_tiktok.*
@@ -10,7 +10,6 @@ import org.tiramisu.biz.base.RT
 import org.tiramisu.immersive.R
 import org.tiramisu.log.TLog
 import org.tiramisu.player.TMVideoView
-import kotlin.properties.Delegates
 
 @Route(path = RT.Immersive.TIKTOK)
 class TiktokActivity : BaseActivity(), OnSnapListener {
@@ -19,7 +18,7 @@ class TiktokActivity : BaseActivity(), OnSnapListener {
         private const val TAG = "MainActivity"
     }
 
-    private var viewModel: TiktokViewModel by Delegates.notNull()
+    private val viewModel by viewModels<TiktokViewModel>()
 
     private val layoutManager by lazy {
         TiktokLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -28,8 +27,6 @@ class TiktokActivity : BaseActivity(), OnSnapListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tiktok)
-
-        viewModel = ViewModelProvider(this).get(TiktokViewModel::class.java)
 
         initView()
 
