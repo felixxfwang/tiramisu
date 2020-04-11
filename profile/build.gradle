@@ -1,3 +1,4 @@
+ext.applicationId = 'org.tiramisu.profile'
 apply from: rootProject.file('gradle/modular.gradle')
 apply from: rootProject.file('gradle/test.gradle')
 

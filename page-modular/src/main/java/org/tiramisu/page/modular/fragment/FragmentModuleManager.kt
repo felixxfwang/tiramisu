@@ -11,7 +11,7 @@ open class FragmentModuleManager : AbstractModuleManager(),
     IFragmentModule, VisibilityChangedListener {
 
     val modules by lazy {
-        ArrayList<IFragmentModule>().also { addModule(visibilityModule) }
+        ArrayList<IFragmentModule>().also { it.add(visibilityModule) }
     }
 
     private var visibilityChangedListener: VisibilityChangedListener? = null
