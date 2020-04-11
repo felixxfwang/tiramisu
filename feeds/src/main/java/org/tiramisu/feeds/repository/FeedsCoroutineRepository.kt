@@ -1,22 +1,16 @@
 package org.tiramisu.feeds.repository
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.tiramisu.log.TLog
 import org.tiramisu.repository.LoadCallback
 import org.tiramisu.repository.Result
 
-abstract class FeedsCoroutineRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY> : FeedsDataRepository<P, D, REQ, RSP, KEY>() {
+abstract class FeedsCoroutineRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY>(
+    private val scope: CoroutineScope
+) : FeedsDataRepository<P, D, REQ, RSP, KEY>() {
     companion object {
         private const val TAG = "FeedsCoroutineRepository"
-    }
-
-    private val scope: CoroutineScope = MainScope()
-
-    override fun cancel() {
-        scope.cancel()
     }
 
     override fun sendDataRequest(param: P, isLoadInitial: Boolean, callback: LoadCallback<P, D>?) {
