@@ -5,7 +5,7 @@ interface HttpClient {
     /**
      * 异步请求
      */
-    fun <P: HttpParam, T> sendHttpRequest(
+    fun <P: HttpParam, T: Any> sendHttpRequest(
         url: String,
         method: HttpMethod,
         clazz: Class<T>,
@@ -17,7 +17,7 @@ interface HttpClient {
     /**
      * 同步请求
      */
-    fun <P: HttpParam, T> sendHttpRequest(
+    fun <P: HttpParam, T: Any> sendHttpRequest(
         url: String,
         method: HttpMethod,
         clazz: Class<T>,

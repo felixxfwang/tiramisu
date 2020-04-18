@@ -4,7 +4,7 @@ import org.tiramisu.http.*
 import org.tiramisu.http.Result
 import org.tiramisu.repository.*
 
-class HttpDataClient<PARAM: HttpParam, RESULT>(
+class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
     baseUrl: String,
     private val path: String,
     private val rspClass: Class<RESULT>

@@ -10,7 +10,7 @@ import org.tiramisu.repository.DataResult
 import org.tiramisu.repository.coroutine.CoroutineDataClient
 import kotlin.coroutines.CoroutineContext
 
-class HttpCoroutineDataClient <PARAM: HttpParam, RESULT>(
+class HttpCoroutineDataClient <PARAM: HttpParam, RESULT: Any>(
     baseUrl: String,
     private val path: String,
     private val rspClass: Class<RESULT>

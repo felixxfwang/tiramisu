@@ -4,7 +4,7 @@ import org.tiramisu.http.HttpParam
 import org.tiramisu.repository.coroutine.BaseCoroutineDataSource
 import org.tiramisu.repository.coroutine.CoroutineDataClient
 
-abstract class BaseHttpCoroutineDataSource <P, D, REQ: HttpParam, RSP>(
+abstract class BaseHttpCoroutineDataSource <P, D, REQ: HttpParam, RSP: Any>(
     private val baseUrl: String,
     private val path: String,
     private val rspClass: Class<RSP>

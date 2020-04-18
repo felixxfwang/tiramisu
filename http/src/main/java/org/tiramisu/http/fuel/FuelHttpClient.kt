@@ -12,7 +12,7 @@ import java.io.Reader
 
 class FuelHttpClient : HttpClient {
 
-    override fun <P : HttpParam, T : Any> sendHttpRequest(
+    override fun <P : HttpParam, T: Any> sendHttpRequest(
         url: String,
         method: HttpMethod,
         clazz: Class<T>,
@@ -29,7 +29,7 @@ class FuelHttpClient : HttpClient {
         return FuelCancellable(request)
     }
 
-    override fun <P : HttpParam, T : Any> sendHttpRequest(
+    override fun <P : HttpParam, T: Any> sendHttpRequest(
         url: String,
         method: HttpMethod,
         clazz: Class<T>,

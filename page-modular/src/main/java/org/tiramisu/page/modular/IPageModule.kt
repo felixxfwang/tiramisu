@@ -1,3 +1,5 @@
 package org.tiramisu.page.modular
 
-interface IPageModule
+interface IPageModule {
+    fun setModuleManager(manager: IPageModuleManager) {}
+}

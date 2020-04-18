@@ -6,8 +6,9 @@ abstract class BaseActivityModule<T: IPageModuleManager> : IActivityModule {
 
     private var eventBus: T? = null
 
-    fun setModuleManager(manager: T) {
-        this.eventBus = manager
+    @Suppress("UNCHECKED_CAST")
+    override fun setModuleManager(manager: IPageModuleManager) {
+        this.eventBus = manager as? T
     }
 
     protected fun bus() = eventBus
