@@ -6,12 +6,13 @@ import kotlinx.coroutines.launch
 import org.tiramisu.account.data.LoginSource
 
 import org.tiramisu.account.R
+import org.tiramisu.account.data.LoginRepository
 import org.tiramisu.account.data.model.UserData
 import org.tiramisu.repository.DataResult
 
 typealias LoginResult = DataResult<UserData>
 
-class LoginViewModel(private val loginRepository: LoginSource) : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -59,7 +60,7 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
-                loginRepository = LoginSource()
+                loginRepository = LoginRepository(LoginSource())
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
