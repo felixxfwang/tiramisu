@@ -2,13 +2,13 @@ package org.tiramisu.page.modular.activity
 
 import org.tiramisu.page.modular.IPageModuleManager
 
-abstract class BaseActivityModule : IActivityModule {
+abstract class BaseActivityModule<T: IPageModuleManager> : IActivityModule {
 
-    private var eventBus: IPageModuleManager? = null
+    private var eventBus: T? = null
 
-    override fun setModuleManager(manager: IPageModuleManager) {
+    fun setModuleManager(manager: T) {
         this.eventBus = manager
     }
 
-    protected fun <T> getBus() = eventBus as T
+    protected fun bus() = eventBus
 }

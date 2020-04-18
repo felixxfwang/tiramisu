@@ -2,12 +2,12 @@ package org.tiramisu.page.modular.fragment
 
 import org.tiramisu.page.modular.IPageModuleManager
 
-abstract class BaseFragmentModule : IFragmentModule {
-    private var eventBus: IPageModuleManager? = null
+abstract class BaseFragmentModule<T: IPageModuleManager> : IFragmentModule {
+    private var eventBus: T? = null
 
-    override fun setModuleManager(manager: IPageModuleManager) {
+    fun setModuleManager(manager: T) {
         this.eventBus = manager
     }
 
-    protected fun <T> getBus() = eventBus as T
+    protected fun bus() = eventBus
 }
