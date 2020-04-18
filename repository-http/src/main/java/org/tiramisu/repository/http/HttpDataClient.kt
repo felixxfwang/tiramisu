@@ -4,13 +4,13 @@ import org.tiramisu.http.*
 import org.tiramisu.http.Result
 import org.tiramisu.repository.*
 
-open class HttpDataClient<PARAM: HttpParam, RESULT: Any>(
+class HttpDataClient<PARAM: HttpParam, RESULT>(
     baseUrl: String,
-    protected val path: String,
-    protected val rspClass: Class<RESULT>
+    private val path: String,
+    private val rspClass: Class<RESULT>
 ) : DataClient<PARAM, RESULT> {
 
-    protected val http = TiramisuHttp().baseUrl(baseUrl)
+    private val http = TiramisuHttp().baseUrl(baseUrl)
 
     override fun sendDataRequest(param: PARAM): DataResult<RESULT> {
         return when (val result = http.client.sendHttpRequest(http.wrapUrl(path), HttpMethod.GET, rspClass, param)) {

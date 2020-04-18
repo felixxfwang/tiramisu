@@ -14,10 +14,6 @@ interface DataSource<P, D> {
     fun cancel()
 }
 
-interface CoroutineDataSource<P, D> {
-    suspend fun loadData(param: P): DataResult<D>
-}
-
 /**
  * 数据请求回调，可选方法实现
  */

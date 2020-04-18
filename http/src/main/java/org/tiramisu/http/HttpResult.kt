@@ -2,7 +2,7 @@ package org.tiramisu.http
 
 typealias HttpResult<V> = Result<V, HttpException>
 
-sealed class Result<out V : Any, out E : Exception> {
+sealed class Result<out V, out E : Exception> {
 
     open operator fun component1(): V? = null
     open operator fun component2(): E? = null

@@ -1,6 +1,6 @@
 package org.tiramisu.repository
 
-abstract class BaseDataSource<P, D, REQ, RSP: Any> : DataSource<P, D> {
+abstract class BaseDataSource<P, D, REQ, RSP> : DataSource<P, D> {
 
     protected val client: DataClient<REQ, RSP> by lazy { getDataClient() }
 
