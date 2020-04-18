@@ -1,6 +1,7 @@
 package org.tiramisu.account.signin
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_account.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
+import org.tiramisu.account.Constants.KEY_USER_DATA
 import org.tiramisu.account.R
 import org.tiramisu.account.data.model.UserData
 import org.tiramisu.repository.Result
@@ -50,7 +52,9 @@ abstract class AccountActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     updateUiWithUser(loginResult.get())
-                    setResult(Activity.RESULT_OK)
+
+                    val data = Intent().putExtra(KEY_USER_DATA, loginResult.get())
+                    setResult(Activity.RESULT_OK, data)
                     finish()
                 }
             }

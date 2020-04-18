@@ -1,14 +1,36 @@
 package org.tiramisu.account
 
+import android.content.Intent
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import org.tiramisu.account.Constants.KEY_USER_DATA
 import org.tiramisu.account.data.model.UserData
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(
+    private val repository: ProfileRepository = ProfileRepository()
+) : ViewModel() {
 
-    val userData = MutableLiveData<UserData>()
+    companion object {
+        private val NO_USER = UserData("0", "未登录", "", "请点击注册")
+    }
+
+    private val _userData = MutableLiveData<UserData>()
+    val userData: LiveData<UserData> = _userData
 
     fun loadUserData() {
-        userData.value = UserData("1234","珞小飞", "https://img.iplaysoft.com/wp-content/uploads/2019/free-images/free_stock_photo_2x.jpg!0x0.webp", "哈哈哈哈哈哈哈哈")
+        viewModelScope.launch {
+            _userData.value = repository.getUserData() ?: NO_USER
+        }
+    }
+
+    fun isSignedIn(): Boolean {
+        return userData.value != null && userData.value != NO_USER
+    }
+
+    fun onSignedIn(data: Intent?) {
+        _userData.value = data?.getParcelableExtra(KEY_USER_DATA)
     }
 }

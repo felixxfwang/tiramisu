@@ -23,6 +23,7 @@ dependencies {
     implementation project(':repository')
     implementation project(':repository-http')
     implementation project(':storage')
+    implementation project(':serializable')
 
     implementation project(':modular')
     implementation project(':biz-base')
