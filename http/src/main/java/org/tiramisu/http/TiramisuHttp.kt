@@ -67,7 +67,8 @@ class TiramisuHttp {
     }
 
     private fun initFuelHttpClient(): HttpClient {
-        FuelManager.instance.socketFactory = getSSLSocketFactory(context)
+        val sslSocketFactory = getSSLSocketFactory(context)
+        FuelManager.instance.socketFactory = sslSocketFactory
         if (isDebug) {
             FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
         }

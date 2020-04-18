@@ -2,9 +2,12 @@ package org.tiramisu.account
 
 import android.app.Application
 import com.google.auto.service.AutoService
+import org.tiramisu.biz.base.AppSettings
+import org.tiramisu.http.TiramisuHttp
 import org.tiramisu.log.TLog
 import org.tiramisu.modular.BaseModule
 import org.tiramisu.modular.IModule
+import org.tiramisu.page.modular.PageModular
 
 @AutoService(IModule::class)
 class AccountModule: BaseModule() {
@@ -20,9 +23,9 @@ class AccountModule: BaseModule() {
         super.initialize(application)
         TLog.i(TAG, "initialize.")
 
-//        TiramisuHttp.initialize(application, AppSettings.isDebugVersion)
+        TiramisuHttp.initialize(application, AppSettings.isDebugVersion)
 
-//        PageModular.initialize(application)
+        PageModular.initialize(application)
     }
 
     override fun unload() {

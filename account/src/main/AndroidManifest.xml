@@ -1,2 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tiramisu.account" />
+    package="org.tiramisu.account">
+    <application>
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="@string/title_activity_login"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
+        </activity>
+    </application>
+</manifest>
