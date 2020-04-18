@@ -1,16 +1,12 @@
 package org.tiramisu.feeds.repository
 
-import kotlinx.coroutines.Dispatchers
 import org.tiramisu.log.TLog
 import org.tiramisu.repository.DataResult
 import org.tiramisu.repository.coroutine.AbstractCoroutineDataSource
 import org.tiramisu.repository.transform
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.coroutines.CoroutineContext
 
-abstract class FeedsCoroutineSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY>(
-    private val scope: CoroutineContext = Dispatchers.IO
-) : AbstractCoroutineDataSource<P, D, REQ, RSP>(), PagingCoroutineDataSource<P, D> {
+abstract class FeedsCoroutineSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY> : AbstractCoroutineDataSource<P, D, REQ, RSP>(), PagingCoroutineDataSource<P, D> {
 
     companion object {
         private const val TAG = "FeedsCoroutineSource"
