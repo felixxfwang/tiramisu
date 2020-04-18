@@ -1,9 +1,9 @@
-package org.tiramisu.account.login
+package org.tiramisu.account.signin
 
 /**
  * Data validation state of the login form.
  */
-data class LoginFormState(
+data class AccountFormState(
     val usernameError: Int? = null,
     val passwordError: Int? = null,
     val isDataValid: Boolean = false

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.startActivity
-import org.tiramisu.account.login.LoginActivity
+import org.tiramisu.account.signin.SignInActivity
 import org.tiramisu.base.BaseFragment
 import org.tiramisu.image.with
 
@@ -38,11 +38,6 @@ class ProfileFragment : BaseFragment() {
             signature.text = it.signature
             avatar.with(this).load(it.avatar)
         }
-        avatar.setOnClickListener { requireActivity().startActivity<LoginActivity>() }
+        avatar.setOnClickListener { requireActivity().startActivity<SignInActivity>() }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
 }

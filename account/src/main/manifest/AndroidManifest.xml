@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/TiramisuTheme">
         <activity
-            android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login"/>
-        <activity
             android:name=".ProfileActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
             <intent-filter>
@@ -22,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".signin.SignInActivity" />
+        <activity android:name=".signin.SignUpActivity" />
     </application>
 
 </manifest>
