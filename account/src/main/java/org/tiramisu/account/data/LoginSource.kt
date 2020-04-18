@@ -7,7 +7,7 @@ import org.tiramisu.biz.base.BASE_HTTP_URL
 import org.tiramisu.repository.*
 import org.tiramisu.repository.http.HttpDataClient
 
-class LoginRepository : BaseCoroutineRepository<LoginData, UserData, LoginParam, UserData>() {
+class LoginSource : BaseCoroutineSource<LoginData, UserData, LoginParam, UserData>() {
 
     // in-memory cache of the loggedInUser object
     var user: UserData? = null

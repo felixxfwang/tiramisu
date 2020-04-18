@@ -2,7 +2,7 @@ package org.tiramisu.repository
 
 import java.util.concurrent.atomic.AtomicBoolean
 
-abstract class BaseCoroutineRepository<P, D, REQ, RSP: Any> : BaseDataRepository<P, D, REQ, RSP>(), CoroutineDataRepository<P, D> {
+abstract class BaseCoroutineSource<P, D, REQ, RSP: Any> : BaseDataSource<P, D, REQ, RSP>(), CoroutineDataSource<P, D> {
 
     final override fun loadData(param: P, callback: LoadDataCallback<P, D>?) {}
 

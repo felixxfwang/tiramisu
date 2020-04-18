@@ -7,13 +7,13 @@ import org.tiramisu.feeds.repository.FeedReqParameter
 import org.tiramisu.feeds.repository.LoadInitialCallback
 import org.tiramisu.feeds.repository.LoadMoreCallback
 import org.tiramisu.immersive.data.VideoData
-import org.tiramisu.immersive.repository.VideoFeedsRepository
+import org.tiramisu.immersive.repository.VideoFeedsSource
 
 class TiktokViewModel : ViewModel(),
     LoadInitialCallback<FeedReqParameter, List<VideoData>>,
     LoadMoreCallback<FeedReqParameter, List<VideoData>> {
 
-    private val repository = VideoFeedsRepository(viewModelScope)
+    private val repository = VideoFeedsSource(viewModelScope)
     private val req = FeedReqParameter()
 
     val adapter by lazy {

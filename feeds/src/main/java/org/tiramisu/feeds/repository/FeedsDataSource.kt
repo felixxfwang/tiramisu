@@ -1,14 +1,14 @@
 package org.tiramisu.feeds.repository
 
 import org.tiramisu.log.TLog
-import org.tiramisu.repository.BaseDataRepository
+import org.tiramisu.repository.BaseDataSource
 import org.tiramisu.repository.DataCallback
 import org.tiramisu.repository.DataException
 import org.tiramisu.repository.LoadCallback
 import java.util.concurrent.atomic.AtomicBoolean
 
-abstract class FeedsDataRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY>()
-    : BaseDataRepository<P, D, REQ, RSP>(), PagingDataRepository<P, D> {
+abstract class FeedsDataSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY>()
+    : BaseDataSource<P, D, REQ, RSP>(), PagingDataSource<P, D> {
 
     companion object {
         private const val TAG = "FeedsDataRepository"

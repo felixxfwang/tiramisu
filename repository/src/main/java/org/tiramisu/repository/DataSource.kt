@@ -5,7 +5,7 @@ package org.tiramisu.repository
  * @author felixxfwang
  * @date   2019-09-09
  */
-interface DataRepository<P, D> {
+interface DataSource<P, D> {
     /**
      * 加载数据
      */
@@ -14,7 +14,7 @@ interface DataRepository<P, D> {
     fun cancel()
 }
 
-interface CoroutineDataRepository<P, D> {
+interface CoroutineDataSource<P, D> {
     suspend fun loadData(param: P): DataResult<D>
 }
 

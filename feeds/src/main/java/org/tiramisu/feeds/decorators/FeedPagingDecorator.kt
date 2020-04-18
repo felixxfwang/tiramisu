@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.tiramisu.feeds.adapter.decorator.AdapterLifecycleDecorator
 import org.tiramisu.feeds.data.BaseAdapterData
 import org.tiramisu.feeds.repository.LoadMoreCallback
-import org.tiramisu.feeds.repository.PagingDataRepository
+import org.tiramisu.feeds.repository.PagingDataSource
 import org.tiramisu.log.TLog
 
 /**
@@ -24,34 +24,34 @@ class FeedPagingDecorator<T : BaseAdapterData, P, D>(
         private const val TAG = "PagingScrollListener"
     }
 
-    private var repFactory: RepositoryFactory<P, D>? = null
-    private var repository: PagingDataRepository<P, D>? = null
+    private var sourceFactory: DataSourceFactory<P, D>? = null
+    private var source: PagingDataSource<P, D>? = null
     private var paramFactory: (() -> P)? = null
     private var param: P? = null
 
     constructor(
-        repFactory: RepositoryFactory<P, D>,
+        repFactory: DataSourceFactory<P, D>,
         paramFactory: () -> P,
         preloadDistance: Int = 10,
         loadCallback: LoadMoreCallback<P, D>
     ): this(preloadDistance, loadCallback) {
-        this.repFactory = repFactory
+        this.sourceFactory = repFactory
         this.paramFactory = paramFactory
     }
 
     constructor(
-        repository: PagingDataRepository<P, D>,
+        repository: PagingDataSource<P, D>,
         param: P,
         preloadDistance: Int = 10,
         loadCallback: LoadMoreCallback<P, D>
     ): this(preloadDistance, loadCallback) {
-        this.repository = repository
+        this.source = repository
         this.param = param
     }
 
     private fun getParameter() = param ?: paramFactory?.invoke()
 
-    private fun repository() = repository ?: repFactory?.invoke()
+    private fun dataSource() = source ?: sourceFactory?.invoke()
 
     override fun onAdapterScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
@@ -76,12 +76,12 @@ class FeedPagingDecorator<T : BaseAdapterData, P, D>(
 
         if (lastVisiblePosition + preloadDistance >= itemCount) {
             when {
-                repository()?.isLoadingAfter() == true -> { } // LogUtil.d(TAG, "source is loading, can't load next page.")
-                repository()?.isLastPage() == true -> TLog.d(TAG, "source is last page, can't load next page.")
+                dataSource()?.isLoadingAfter() == true -> { } // LogUtil.d(TAG, "source is loading, can't load next page.")
+                dataSource()?.isLastPage() == true -> TLog.d(TAG, "source is last page, can't load next page.")
                 else -> {
                     TLog.d(TAG, "start load next page.")
                     getParameter()?.let { param ->
-                        repository()?.loadAfter(param, loadCallback)
+                        dataSource()?.loadAfter(param, loadCallback)
                     }
                 }
             }
@@ -89,4 +89,4 @@ class FeedPagingDecorator<T : BaseAdapterData, P, D>(
     }
 }
 
-typealias RepositoryFactory<P, D> = () -> PagingDataRepository<P, D>
+typealias DataSourceFactory<P, D> = () -> PagingDataSource<P, D>

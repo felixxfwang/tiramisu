@@ -6,9 +6,9 @@ import org.tiramisu.log.TLog
 import org.tiramisu.repository.LoadCallback
 import org.tiramisu.repository.Result
 
-abstract class FeedsCoroutineRepository<P: FeedReqParameter, D, REQ, RSP: Any, KEY>(
+abstract class FeedsCoroutineSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY>(
     private val scope: CoroutineScope
-) : FeedsDataRepository<P, D, REQ, RSP, KEY>() {
+) : FeedsDataSource<P, D, REQ, RSP, KEY>() {
     companion object {
         private const val TAG = "FeedsCoroutineRepository"
     }

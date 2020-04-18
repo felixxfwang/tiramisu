@@ -1,13 +1,13 @@
 package org.tiramisu.feeds.repository
 
-import org.tiramisu.repository.DataRepository
+import org.tiramisu.repository.DataSource
 import org.tiramisu.repository.LoadCallback
 import org.tiramisu.repository.LoadDataCallback
 
 /**
  * 分页数据源
  */
-interface PagingDataRepository<P, D> : DataRepository<P, D> {
+interface PagingDataSource<P, D> : DataSource<P, D> {
     /**
      * 刷新页面
      */

@@ -3,15 +3,15 @@ package org.tiramisu.immersive.repository
 import kotlinx.coroutines.CoroutineScope
 import org.tiramisu.biz.base.BASE_HTTP_URL
 import org.tiramisu.feeds.repository.FeedReqParameter
-import org.tiramisu.feeds.repository.FeedsCoroutineRepository
+import org.tiramisu.feeds.repository.FeedsCoroutineSource
 import org.tiramisu.immersive.data.VideoData
 import org.tiramisu.immersive.data.VideoQueryParam
 import org.tiramisu.immersive.data.VideoQueryResult
 import org.tiramisu.repository.DataClient
 import org.tiramisu.repository.http.HttpDataClient
 
-class VideoFeedsRepository(scope: CoroutineScope)
-    : FeedsCoroutineRepository<FeedReqParameter, List<VideoData>, VideoQueryParam, VideoQueryResult, Int>(scope) {
+class VideoFeedsSource(scope: CoroutineScope)
+    : FeedsCoroutineSource<FeedReqParameter, List<VideoData>, VideoQueryParam, VideoQueryResult, Int>(scope) {
 
     override fun getRequest(param: FeedReqParameter, isLoadInitial: Boolean): VideoQueryParam {
         val page = if (isLoadInitial) 0 else nextKey ?: 0
