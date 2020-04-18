@@ -45,11 +45,15 @@ abstract class AccountActivity : AppCompatActivity() {
 
             loading.visibility = View.GONE
             when (loginResult) {
-                is Result.Failure -> showLoginFailed(loginResult.error.message)
-                is Result.Success -> updateUiWithUser(loginResult.get())
+                is Result.Failure -> {
+                    showLoginFailed(loginResult.error.message)
+                }
+                is Result.Success -> {
+                    updateUiWithUser(loginResult.get())
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
             }
-            setResult(Activity.RESULT_OK)
-            finish()
         })
 
         phone.afterTextChanged {
