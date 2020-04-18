@@ -2,6 +2,13 @@ package org.tiramisu.repository
 
 typealias DataResult<V> = Result<V, DataException>
 
+fun <M, N> DataResult<M>.transform(block: (M) -> N): DataResult<N> {
+    return when (this) {
+        is Result.Success -> Result.success(block(this.get()))
+        is Result.Failure -> Result.error(this.getException())
+    }
+}
+
 sealed class Result<out V, out E : Exception> {
 
     open operator fun component1(): V? = null

@@ -1,5 +1,6 @@
 package org.tiramisu.feeds.repository
 
+import org.tiramisu.repository.DataResult
 import org.tiramisu.repository.DataSource
 import org.tiramisu.repository.LoadCallback
 import org.tiramisu.repository.LoadDataCallback
@@ -20,6 +21,12 @@ interface PagingDataSource<P, D> : DataSource<P, D> {
     fun isLastPage(): Boolean
     fun isLoadingInitial(): Boolean
     fun isLoadingAfter(): Boolean
+}
+
+interface PagingCoroutineDataSource<P, D> {
+    suspend fun loadInitial(param: P): DataResult<D>
+    suspend fun loadAfter(param: P): DataResult<D>
+    fun isLastPage(): Boolean
 }
 
 typealias LoadInitialCallback<P, D> = LoadDataCallback<P, D>

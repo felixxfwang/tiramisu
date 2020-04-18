@@ -1,24 +1,13 @@
 package org.tiramisu.repository.coroutine
 
 import org.tiramisu.repository.DataResult
-import org.tiramisu.repository.Result
+import org.tiramisu.repository.transform
 
-abstract class BaseCoroutineDataSource<P, D, REQ, RSP> : CoroutineDataSource<P, D> {
-
-    private val client: CoroutineDataClient<REQ, RSP> by lazy { getDataClient() }
+abstract class BaseCoroutineDataSource<P, D, REQ, RSP> : AbstractCoroutineDataSource<P, D, REQ, RSP>() {
 
     override suspend fun loadData(param: P): DataResult<D> {
-        return when (val response = client.sendRequest(getRequest(param))) {
-            is Result.Success -> Result.success(
-                getResponse(response.get())
-            )
-            is Result.Failure -> Result.error(
-                response.getException()
-            )
-        }
+        return client.sendRequest(getRequest(param)).transform { getResponse(it) }
     }
-
-    protected abstract fun getDataClient(): CoroutineDataClient<REQ, RSP>
 
     protected abstract fun getRequest(param: P): REQ
 

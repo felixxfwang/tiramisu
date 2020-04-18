@@ -7,7 +7,7 @@ import org.tiramisu.repository.DataException
 import org.tiramisu.repository.LoadCallback
 import java.util.concurrent.atomic.AtomicBoolean
 
-abstract class FeedsDataSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY>()
+abstract class FeedsDataSource<P: FeedReqParameter, D, REQ, RSP, KEY>()
     : BaseDataSource<P, D, REQ, RSP>(), PagingDataSource<P, D> {
 
     companion object {
