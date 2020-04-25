@@ -10,5 +10,13 @@ interface ImageLoadClient {
     fun load(context: Any, imageUri: Any?, callback: ImageLoadFunction)
 }
 
-class ImageOptions(
-)
+fun options() = ImageOptions()
+
+class ImageOptions {
+    var isCircle = false
+
+    fun asCircle(): ImageOptions {
+        this.isCircle = true
+        return this
+    }
+}

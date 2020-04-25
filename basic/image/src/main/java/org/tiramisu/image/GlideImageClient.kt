@@ -99,6 +99,9 @@ class GlideImageClient : ImageLoadClient {
 
     private fun options(builder: RequestBuilder<Drawable>, options: ImageOptions?): RequestBuilder<Drawable> {
         return options?.let { opt ->
+            when {
+                opt.isCircle -> builder.circleCrop()
+            }
             builder
         } ?: builder
     }

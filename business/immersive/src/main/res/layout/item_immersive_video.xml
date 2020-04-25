@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@android:color/black">
 
     <org.tiramisu.player.TMVideoView
         android:id="@+id/video_view"
@@ -21,24 +24,27 @@
         android:focusable="false"
         android:visibility="visible" />
     <LinearLayout
+        android:id="@+id/social_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:gravity="center_horizontal"
-        >
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
-                android:src="@mipmap/header_icon_2" />
+                tools:src="@mipmap/header_icon_2" />
             <ImageView
+                android:id="@+id/btn_follow"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/circle_big_red"
@@ -53,27 +59,42 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:drawableTop="@mipmap/heart_icon"
-            android:layout_marginTop="16dp"
-            android:text="88.8w"
+            android:layout_marginTop="20dp"
+            tools:text="88.8w"
             android:textColor="@android:color/white"
             android:gravity="center" />
         <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:drawableTop="@mipmap/msg_icon"
-            android:layout_marginTop="16dp"
-            android:text="66.8w"
+            android:layout_marginTop="20dp"
+            tools:text="66.8w"
             android:textColor="@android:color/white"
             android:gravity="center" />
         <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:drawableTop="@mipmap/share_icon"
-            android:layout_marginTop="16dp"
-            android:text="99.8w"
+            android:layout_marginTop="20dp"
+            tools:text="99.8w"
             android:textColor="@android:color/white"
             android:gravity="center" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/social_container"
+        tools:text="xxxxxx"
+        android:padding="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+
     <ImageView
         android:id="@+id/img_play"
         android:layout_width="60dp"

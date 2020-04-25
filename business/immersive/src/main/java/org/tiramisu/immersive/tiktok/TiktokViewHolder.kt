@@ -2,7 +2,9 @@ package org.tiramisu.immersive.tiktok
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import org.tiramisu.feeds.holder.BaseFeedViewHolder
+import org.tiramisu.image.options
 import org.tiramisu.image.with
 import org.tiramisu.immersive.R
 import org.tiramisu.immersive.data.VideoData
@@ -16,6 +18,10 @@ class TiktokViewHolder(itemView: View) : BaseFeedViewHolder<VideoData>(itemView)
     override fun onBindData(data: VideoData) {
         videoCover.with(context).load(data.video.cover_url)
         videoView.setUp(data.video.video_url)
+        findView<TextView>(R.id.video_title).text = data.video.video_title
+        findView<ImageView>(R.id.avatar).with(context)
+            .options(options().asCircle())
+            .load(R.mipmap.header_icon_2)
     }
 
     fun play() {
