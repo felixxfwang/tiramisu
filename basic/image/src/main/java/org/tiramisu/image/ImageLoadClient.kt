@@ -14,9 +14,21 @@ fun options() = ImageOptions()
 
 class ImageOptions {
     var isCircle = false
+    var loadingPlaceHolder = -1
+    var errorPlaceHolder = -1
 
     fun asCircle(): ImageOptions {
         this.isCircle = true
+        return this
+    }
+
+    fun placeholder(placeHolder: Int): ImageOptions {
+        this.loadingPlaceHolder = placeHolder
+        return this
+    }
+
+    fun error(placeHolder: Int): ImageOptions {
+        this.errorPlaceHolder = placeHolder
         return this
     }
 }

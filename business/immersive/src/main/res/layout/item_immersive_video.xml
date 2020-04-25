@@ -63,6 +63,7 @@
             android:layout_marginTop="20dp"
             tools:text="88.8w"
             android:textColor="@android:color/white"
+            android:drawableTint="@drawable/tint_btn_like"
             android:gravity="center" />
         <TextView
             android:id="@+id/text_comment_count"
@@ -73,7 +74,7 @@
             tools:text="66.8w"
             android:textColor="@android:color/white"
             android:gravity="center" />
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_share_count"
             android:layout_width="50dp"
             android:layout_height="50dp"

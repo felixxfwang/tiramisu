@@ -101,6 +101,8 @@ class GlideImageClient : ImageLoadClient {
         return options?.let { opt ->
             when {
                 opt.isCircle -> builder.circleCrop()
+                opt.errorPlaceHolder != -1 -> builder.error(opt.errorPlaceHolder)
+                opt.loadingPlaceHolder != -1 -> builder.placeholder(opt.loadingPlaceHolder)
             }
             builder
         } ?: builder
