@@ -34,7 +34,7 @@ task clean(type: Delete) {
 apply plugin: 'deploy-plugin'
 
 deployer {
-    modules = ['page-modular-annotations', 'page-modular-processor']
+    modules = [':basic:page-modular-annotations', ':basic:page-modular-processor']
     deployRepoUrl 'https://dl.bintray.com/felixwang1215/tiramisu'
 //    snapshotRepoUrl 'http://mirrors.tencent.com/repository/maven/thirdparty-snapshots/'
     username MAVEN_USER

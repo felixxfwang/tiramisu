@@ -5,5 +5,5 @@ dependencies {
     api 'com.qmuiteam:qmui:2.0.0-alpha02'
     implementation "androidx.fragment:fragment-ktx:1.2.4"
 
-    implementation project(':page-modular')
+    implementation project(':basic:page-modular')
 }

@@ -46,8 +46,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation project(':modular')
-    implementation project(':base')
-    implementation project(':biz-base')
-    runtimeOnly project(':immersive')
+    implementation project(':common:modular')
+    implementation project(':common:base')
+    implementation project(':common:biz-base')
+    runtimeOnly project(':business:immersive')
 }

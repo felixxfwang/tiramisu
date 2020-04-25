@@ -4,7 +4,7 @@ apply from: rootProject.file('gradle/test.gradle')
 dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
-    implementation project(':repository')
-    implementation project(':log')
-    implementation project(':page-modular')
+    implementation project(':basic:repository')
+    implementation project(':basic:log')
+    implementation project(':basic:page-modular')
 }

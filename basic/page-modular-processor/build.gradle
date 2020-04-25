@@ -11,7 +11,7 @@ dependencies {
     kapt 'com.google.auto.service:auto-service:1.0-rc4'
 
     implementation 'com.squareup:kotlinpoet:1.4.1'
-    implementation project(':page-modular-annotations')
+    implementation project(':basic:page-modular-annotations')
 }
 
 sourceCompatibility = "8"

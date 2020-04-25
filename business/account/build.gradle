@@ -15,19 +15,19 @@ dependencies {
 
     implementation "androidx.fragment:fragment-ktx:1.2.4"
 
-    implementation project(':base')
-    implementation project(':utils')
-    implementation project(':http')
-    implementation project(':log')
-    implementation project(':image')
-    implementation project(':repository')
-    implementation project(':repository-http')
-    implementation project(':storage')
-    implementation project(':serializable')
+    implementation project(':common:base')
+    implementation project(':basic:utils')
+    implementation project(':basic:http')
+    implementation project(':basic:log')
+    implementation project(':basic:image')
+    implementation project(':basic:repository')
+    implementation project(':common:repository-http')
+    implementation project(':basic:storage')
+    implementation project(':basic:serializable')
 
-    implementation project(':modular')
-    implementation project(':biz-base')
-    implementation project(':page-modular')
-    implementation project(':page-modular-annotations')
-    kapt project(':page-modular-processor')
+    implementation project(':common:modular')
+    implementation project(':common:biz-base')
+    implementation project(':basic:page-modular')
+    implementation project(':basic:page-modular-annotations')
+    kapt project(':basic:page-modular-processor')
 }

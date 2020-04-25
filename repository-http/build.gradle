@@ -1,8 +1,0 @@
-apply from: rootProject.file('gradle/library.gradle')
-apply from: rootProject.file('gradle/test.gradle')
-
-dependencies {
-    implementation project(':repository')
-    implementation project(':http')
-    implementation project(':http-coroutine')
-}
