@@ -14,7 +14,7 @@ import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 import org.tiramisu.account.Constants.KEY_USER_DATA
 import org.tiramisu.account.R
-import org.tiramisu.account.data.model.UserData
+import org.tiramisu.data.user.User
 import org.tiramisu.repository.Result
 import org.tiramisu.utils.afterTextChanged
 
@@ -82,7 +82,7 @@ abstract class AccountActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: UserData) {
+    private fun updateUiWithUser(model: User) {
         val welcome = getString(R.string.welcome)
         val displayName = model.username
         longToast("$welcome $displayName")

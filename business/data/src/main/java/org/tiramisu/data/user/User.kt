@@ -1,4 +1,4 @@
-package org.tiramisu.account.data.model
+package org.tiramisu.data.user
 
 import android.os.Parcelable
 import com.twitter.serial.serializer.ObjectSerializer
@@ -12,18 +12,18 @@ import org.tiramisu.utils.extensions.toStringExt
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 @Parcelize
-data class UserData(
+data class User(
     val userId: String,
     val username: String,
     var avatar: String,
     var signature: String
 ): Parcelable {
     companion object {
-        val serializer = object : ObjectSerializer<UserData>() {
+        val serializer = object : ObjectSerializer<User>() {
             override fun serializeObject(
                 context: SerializationContext,
                 output: SerializerOutput<out SerializerOutput<*>>,
-                data: UserData
+                data: User
             ) {
                 output.writeString(data.userId)
                     .writeString(data.username)
@@ -35,8 +35,8 @@ data class UserData(
                 context: SerializationContext,
                 input: SerializerInput,
                 versionNumber: Int
-            ): UserData? {
-                return UserData(
+            ): User? {
+                return User(
                     input.readString().toStringExt(),
                     input.readString().toStringExt(),
                     input.readString().toStringExt(),

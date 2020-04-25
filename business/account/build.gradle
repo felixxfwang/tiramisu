@@ -30,4 +30,6 @@ dependencies {
     implementation project(':basic:page-modular')
     implementation project(':basic:page-modular-annotations')
     kapt project(':basic:page-modular-processor')
+
+    implementation project(':business:data')
 }

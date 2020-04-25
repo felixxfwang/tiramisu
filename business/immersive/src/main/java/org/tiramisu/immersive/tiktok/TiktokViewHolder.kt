@@ -7,21 +7,28 @@ import org.tiramisu.feeds.holder.BaseFeedViewHolder
 import org.tiramisu.image.options
 import org.tiramisu.image.with
 import org.tiramisu.immersive.R
-import org.tiramisu.immersive.data.VideoData
+import org.tiramisu.immersive.data.PostData
 import org.tiramisu.player.TMVideoView
 
-class TiktokViewHolder(itemView: View) : BaseFeedViewHolder<VideoData>(itemView) {
+class TiktokViewHolder(itemView: View) : BaseFeedViewHolder<PostData>(itemView) {
 
     private val videoView = findView<TMVideoView>(R.id.video_view)
     private val videoCover = findView<ImageView>(R.id.img_thumb)
 
-    override fun onBindData(data: VideoData) {
-        videoCover.with(context).load(data.video.cover_url)
-        videoView.setUp(data.video.video_url)
-        findView<TextView>(R.id.video_title).text = data.video.video_title
+    override fun onBindData(data: PostData) {
+        val post = data.post
+        val video = data.post.video
+        val user = data.post.user
+        videoCover.with(context).load(video.cover_url)
+        videoView.setUp(video.video_url)
+        findView<TextView>(R.id.video_title).text = video.video_title
+        findView<TextView>(R.id.post_author).text = "@${user.username}"
         findView<ImageView>(R.id.avatar).with(context)
             .options(options().asCircle())
-            .load(R.mipmap.header_icon_2)
+            .load(user.avatar)
+        findView<TextView>(R.id.text_like_count).text = post.like_count.toString()
+        findView<TextView>(R.id.text_comment_count).text = post.comment_count.toString()
+        findView<TextView>(R.id.text_share_count).text = post.share_count.toString()
     }
 
     fun play() {

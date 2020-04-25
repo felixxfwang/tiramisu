@@ -1,6 +1,7 @@
 package org.tiramisu.feeds.repository
 
 import org.tiramisu.log.TLog
+import org.tiramisu.repository.DataException
 import org.tiramisu.repository.DataResult
 import org.tiramisu.repository.coroutine.AbstractCoroutineDataSource
 import org.tiramisu.repository.transform
@@ -16,24 +17,35 @@ abstract class FeedsCoroutineSource<P: FeedReqParameter, D, REQ, RSP: Any, KEY> 
     protected var nextKey: KEY? = null
 
     private suspend fun sendDataRequest(param: P, isLoadInitial: Boolean): DataResult<D> {
-        val intercepted = onRequestPreProcess(param, isLoadInitial)
-        return if (intercepted == null) {
-            val req = getRequest(param, isLoadInitial)
-            TLog.i(TAG, "request: $req")
-            val result = client.sendRequest(req)
-            if (result.isSuccess()) {
-                val data = result.get()
-                val isLast = isLastPage(data)
-                isLastPage.set(isLast)
-                nextKey = getNextKeyFromRsp(req, data)
-            }
-            result.transform { getResponse(param, it, isLoadInitial) }.also {
-                if (it.isSuccess()) {
-                    onResponsePostProcess(param, result.get(), it.get(), isLoadInitial, isLastPage.get())
+        try {
+            val intercepted = onRequestPreProcess(param, isLoadInitial)
+            return if (intercepted == null) {
+                val req = getRequest(param, isLoadInitial)
+                TLog.i(TAG, "request: $req")
+                val result = client.sendRequest(req)
+                if (result.isSuccess()) {
+                    val data = result.get()
+                    val isLast = isLastPage(data)
+                    isLastPage.set(isLast)
+                    nextKey = getNextKeyFromRsp(req, data)
                 }
+                result.transform { getResponse(param, it, isLoadInitial) }.also {
+                    if (it.isSuccess()) {
+                        onResponsePostProcess(
+                            param,
+                            result.get(),
+                            it.get(),
+                            isLoadInitial,
+                            isLastPage.get()
+                        )
+                    }
+                }
+            } else {
+                intercepted
             }
-        } else {
-            intercepted
+        } catch (e: Exception) {
+            TLog.e(TAG, "sendDataRequest failed", e)
+            return DataResult.error(DataException(-1, e.message, e))
         }
     }
 

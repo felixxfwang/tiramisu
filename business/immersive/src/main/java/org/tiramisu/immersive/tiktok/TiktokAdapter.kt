@@ -1,9 +1,9 @@
 package org.tiramisu.immersive.tiktok
 
 import org.tiramisu.feeds.adapter.BaseLifecycleAdapter
-import org.tiramisu.immersive.data.VideoData
+import org.tiramisu.immersive.data.PostData
 
-class TiktokAdapter : BaseLifecycleAdapter<VideoData, TiktokViewHolder>() {
+class TiktokAdapter : BaseLifecycleAdapter<PostData, TiktokViewHolder>() {
 
     companion object {
         private const val TAG = "TiktokAdapter"

@@ -6,11 +6,11 @@ import kotlinx.coroutines.launch
 import org.tiramisu.feeds.decorators.DataLoadCallback
 import org.tiramisu.feeds.decorators.FeedCoroutinePagingDecorator
 import org.tiramisu.feeds.repository.FeedReqParameter
-import org.tiramisu.immersive.data.VideoData
+import org.tiramisu.immersive.data.PostData
 import org.tiramisu.immersive.repository.VideoFeedsSource
 import org.tiramisu.repository.DataResult
 
-class TiktokViewModel : ViewModel(), DataLoadCallback<FeedReqParameter, List<VideoData>> {
+class TiktokViewModel : ViewModel(), DataLoadCallback<FeedReqParameter, List<PostData>> {
 
     private val source = VideoFeedsSource()
     private val req = FeedReqParameter()
@@ -32,7 +32,7 @@ class TiktokViewModel : ViewModel(), DataLoadCallback<FeedReqParameter, List<Vid
         }
     }
 
-    override fun onDataLoaded(param: FeedReqParameter, result: DataResult<List<VideoData>>, isLastPage: Boolean) {
+    override fun onDataLoaded(param: FeedReqParameter, result: DataResult<List<PostData>>, isLastPage: Boolean) {
         if (result.isSuccess()) {
             adapter.addAdapterData(result.get())
         }

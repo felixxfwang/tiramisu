@@ -30,4 +30,6 @@ dependencies {
     implementation project(':common:feeds')
     implementation project(':basic:repository')
     implementation project(':common:repository-http')
+
+    implementation project(':business:data')
 }

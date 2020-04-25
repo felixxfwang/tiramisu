@@ -6,10 +6,10 @@ import kotlinx.coroutines.launch
 
 import org.tiramisu.account.R
 import org.tiramisu.account.data.AccountRepository
-import org.tiramisu.account.data.model.UserData
+import org.tiramisu.data.user.User
 import org.tiramisu.repository.DataResult
 
-typealias LoginResult = DataResult<UserData>
+typealias LoginResult = DataResult<User>
 
 class AccountViewModel(private val repository: AccountRepository) : ViewModel() {
 
