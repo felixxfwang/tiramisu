@@ -11,4 +11,7 @@ abstract class BaseFragmentModule<T: IPageModuleManager> : IFragmentModule {
     }
 
     protected fun bus() = eventBus
+
+    @Suppress("UNCHECKED_CAST")
+    protected fun <B> getBus(): B? = eventBus as? B
 }

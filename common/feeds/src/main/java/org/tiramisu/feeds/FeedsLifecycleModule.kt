@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import org.tiramisu.feeds.data.IChannelModel
 import org.tiramisu.feeds.lifecycle.IListViewLifecycle
 import org.tiramisu.log.TLog
+import org.tiramisu.page.modular.IPageModuleManager
 import org.tiramisu.page.modular.fragment.BaseFragmentModule
 import org.tiramisu.page.modular.fragment.IFragmentModule
 
 class FeedsLifecycleModule(
     private val recycler: RecyclerView
-) : BaseFragmentModule() {
+) : BaseFragmentModule<IPageModuleManager>() {
 
     companion object {
         private const val TAG = "FragmentListModule"
@@ -39,12 +40,12 @@ class FeedsLifecycleModule(
     override fun onFragmentViewCreated(fragment: Fragment, view: View) {
         rootView = view
         if (fragment.arguments?.getBoolean(KEY_RECYCLED) == true) {
-            getBus<IFragmentModule>().onFragmentViewReused()
+            getBus<IFragmentModule>()?.onFragmentViewReused()
             TLog.i(TAG, "onPageViewReused.")
 
             fragment.arguments?.remove(KEY_RECYCLED)
         }
-        getBus<IFragmentModule>().onFragmentViewRefresh()
+        getBus<IFragmentModule>()?.onFragmentViewRefresh()
     }
 
     // ------------------- Page生命周期 --------------------
