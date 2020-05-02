@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.tiramisu.account.Constants.KEY_USER_DATA
+import org.tiramisu.base.appContext
+import org.tiramisu.biz.base.DataConstants
 import org.tiramisu.data.user.User
+import org.tiramisu.feeds.data.ChannelModel
+import org.tiramisu.feeds.data.IChannelModel
 
 class ProfileViewModel(
     private val repository: ProfileRepository = ProfileRepository()
@@ -15,10 +19,16 @@ class ProfileViewModel(
     }
 
     private val _userData = MutableLiveData<User>()
-    val userData: LiveData<User> = _userData
+    private val userData: LiveData<User> = _userData
     val username: LiveData<String> = Transformations.map(userData) { it.username }
     val signature: LiveData<String> = Transformations.map(userData) { it.signature }
     val avatarUrl: LiveData<String> = Transformations.map(userData) { it.avatar }
+
+    val channels: LiveData<List<IChannelModel>> = MutableLiveData<List<IChannelModel>>(listOf(
+        ChannelModel(appContext.getString(R.string.collect), DataConstants.CHANNEL_PROFILE),
+        ChannelModel(appContext.getString(R.string.history), DataConstants.CHANNEL_PROFILE),
+        ChannelModel(appContext.getString(R.string.my_works), DataConstants.CHANNEL_PROFILE)
+    ))
 
     fun loadUserData() {
         viewModelScope.launch {

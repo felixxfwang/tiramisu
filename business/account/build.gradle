@@ -31,6 +31,7 @@ dependencies {
     implementation project(':basic:storage')
     implementation project(':basic:serializable')
 
+    implementation project(':common:feeds')
     implementation project(':common:modular')
     implementation project(':common:biz-base')
     implementation project(':basic:page-modular')
@@ -39,3 +40,4 @@ dependencies {
 
     implementation project(':business:data')
 }
+

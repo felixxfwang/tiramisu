@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.startActivityForResult
 import org.tiramisu.account.Constants.REQUEST_CODE_SIGN_IN
@@ -22,6 +23,7 @@ class ProfileFragment : BaseFragment() {
 
     private val viewModel by viewModels<ProfileViewModel>()
     private var binding by Delegates.notNull<FragmentProfileBinding>()
+    private val adapter by lazy { ProfileAdapter(childFragmentManager) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +42,21 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.model = viewModel
-//        viewModel.userData.observe(viewLifecycleOwner) {
-//            username.text = it.username
-//            signature.text = it.signature
-//            avatar.with(this).load(it.avatar)
-//        }
         avatar.setOnClickListener {
             if (!viewModel.isSignedIn()) {
                 requireActivity().startActivityForResult<SignInActivity>(REQUEST_CODE_SIGN_IN)
             }
+        }
+
+        initTabLayoutAndViewPager()
+    }
+
+    private fun initTabLayoutAndViewPager() {
+        tab_layout.setupWithViewPager(view_pager)
+        view_pager.adapter = adapter
+        viewModel.channels.observe(viewLifecycleOwner) { channels ->
+            adapter.setChannels(channels)
+            adapter.notifyDataSetChanged()
         }
     }
 

@@ -22,4 +22,8 @@ abstract class ViewPagerFragmentStateAdapter(fm: FragmentManager) : FragmentStat
     override fun getItem(position: Int): Fragment {
         return getChannelModel(position)?.let { fragmentPool.getFragment(it) } ?: Fragment()
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return getChannelModel(position)?.getChannelName()
+    }
 }

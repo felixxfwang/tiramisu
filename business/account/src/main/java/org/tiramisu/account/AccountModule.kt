@@ -3,6 +3,7 @@ package org.tiramisu.account
 import android.app.Application
 import com.google.auto.service.AutoService
 import org.tiramisu.biz.base.AppSettings
+import org.tiramisu.feeds.fragment.FeedFragmentRegister
 import org.tiramisu.http.TiramisuHttp
 import org.tiramisu.log.TLog
 import org.tiramisu.modular.BaseModule
@@ -24,6 +25,8 @@ class AccountModule: BaseModule() {
         TLog.i(TAG, "initialize.")
 
         TiramisuHttp.initialize(application, AppSettings.isDebugVersion)
+
+        FeedFragmentRegister.registerFragmentCreator(ProfileFragmentCreator())
 
         PageModular.initialize(application)
     }
