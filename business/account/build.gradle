@@ -2,6 +2,12 @@ ext.applicationId = 'org.tiramisu.account'
 apply from: rootProject.file('gradle/modular.gradle')
 apply from: rootProject.file('gradle/test.gradle')
 
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
 dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
